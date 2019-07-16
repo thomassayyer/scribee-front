@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MasterLayout from '@/layouts/Master.vue'
+import WelcomeLayout from '@/layouts/Welcome.vue'
 
 export default {
-  name: 'app',
   components: {
-    HelloWorld
+    MasterLayout, WelcomeLayout
+  },
+  computed: {
+    layout() {
+      return (this.$store.state.token ? "master" : "welcome") + "-layout"
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
