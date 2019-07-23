@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     layout() {
-      return (this.$store.state.token ? "master" : "welcome") + "-layout"
+      return (this.$store.getters.loggedIn ? "master" : "welcome") + "-layout"
     }
   }
 }
