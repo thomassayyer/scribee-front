@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import MasterLayout from '@/layouts/Master.vue'
-import WelcomeLayout from '@/layouts/Welcome.vue'
+import MasterLayout from '@/layouts/MasterLayout.vue'
+import WelcomeLayout from '@/layouts/WelcomeLayout.vue'
 
 export default {
   components: {
@@ -22,9 +22,23 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  @import '@/styles/typography.scss';
+
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  a {
+    cursor: pointer;
+  }
+</style>
+
 <style lang="scss" scoped>
 #app {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 </style>

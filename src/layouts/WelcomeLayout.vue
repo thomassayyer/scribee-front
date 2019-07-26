@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <video-background/>
+  <div class="welcome-layout">
+    <video-background src="honey.mp4" :brightness="60"/>
     <slot/>
   </div>
 </template>
@@ -14,3 +14,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .welcome-layout {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+

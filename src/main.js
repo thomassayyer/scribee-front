@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import { store } from './store'
 import { router } from './router'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSearch, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -14,6 +16,8 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+library.add(faSearch, faArrowRight)
 
 Vue.config.productionTip = false
 

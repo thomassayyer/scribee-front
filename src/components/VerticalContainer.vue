@@ -1,0 +1,17 @@
+<template>
+  <div class="vertical-container">
+    <slot/>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+  .vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+</style>

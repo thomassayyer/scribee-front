@@ -1,20 +1,48 @@
 <template>
-  <div class="background-video">
-    <video autoplay muted loop preload="true">
-      <source src="@/assets/bg.mp4" type="video/mp4">
+  <div class="video-background">
+    <video autoplay muted loop preload="auto" ref="video">
+      <source :src="require('@/assets/videos/'+src)" :type="getMediaType(src)"/>
     </video>
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '@/styles/typography.scss';
+<script>
+export default {
+  props: {
+    src: {
+      type: String,
+      required: true
+    },
+    brightness: {
+      type: Number,
+      required: false,
+      default: 100
+    }
+  },
+  methods: {
+    getMediaType(src) {
+      return 'video/'+src.split('.').pop()
+    }
+  },
+  mounted() {
+    this.$refs.video.style.filter = `brightness(${this.brightness}%)`
+  }
+}
+</script>
 
-.background-video {
-  z-index: -1000;
-  position: absolute;
+
+<style lang="scss" scoped>
+.video-background {
+  z-index: -100;
+  position: fixed;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>
