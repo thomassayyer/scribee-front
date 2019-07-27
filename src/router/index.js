@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import WelcomePage from '@/pages/WelcomePage.vue'
-import HomePage from '@/pages/HomePage.vue'
+import WelcomePage from '@/pages/WelcomePage'
+import HomePage from '@/pages/HomePage'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
 
 Vue.use(VueRouter);
 
@@ -19,6 +21,16 @@ export const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage
     }
   ]
 })

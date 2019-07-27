@@ -1,11 +1,12 @@
 <template>
   <div class="search-input">
-    <input type="text" :name="name" :placeholder="placeholder" v-model="value"/>
+    <text-input :name="name" :placeholder="placeholder" :value="value" v-model="query" @keyup.enter="search"/>
     <a @click="search"><font-awesome-icon :icon="icon"/></a>
   </div>
 </template>
 
 <script>
+import TextInput from './TextInput'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
@@ -19,6 +20,10 @@ export default {
       required: false,
       default: 'Votre valeur ...'
     },
+    value: {
+      type: String,
+      required: false
+    },
     icon: {
       type: String,
       required: false,
@@ -26,32 +31,23 @@ export default {
     }
   },
   components: {
-    FontAwesomeIcon
+    TextInput, FontAwesomeIcon
   },
   data() {
     return {
-      value: ''
+      query: ''
     }
   },
   methods: {
-    search() { this.$emit('search', this.value) }
+    search() { this.$emit('search', this.query) }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
-  
   .search-input {
-    input {
-      border: 1px solid $secondary-color;
-      border-radius: 20px;
-      outline: 0;
-      padding: 10px 20px;
-      min-width: 200px;
-      &:focus {
-        border-color: $main-color;
-      }
+    .text-input {
+      display: inline;
     }
     a {
       margin-left: 10px;

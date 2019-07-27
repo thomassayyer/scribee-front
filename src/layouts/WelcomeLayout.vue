@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import VideoBackground from '@/components/VideoBackground.vue'
+import VideoBackground from '@/components/VideoBackground'
 
 export default {
   components: {
@@ -19,6 +19,7 @@ export default {
   .welcome-layout {
     width: 100%;
     height: 100%;
+    color: white;
   }
 </style>
 

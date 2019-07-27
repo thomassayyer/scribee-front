@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import MasterLayout from '@/layouts/MasterLayout.vue'
-import WelcomeLayout from '@/layouts/WelcomeLayout.vue'
+import MasterLayout from '@/layouts/MasterLayout'
+import WelcomeLayout from '@/layouts/WelcomeLayout'
 
 export default {
   components: {
@@ -29,10 +29,9 @@ export default {
     margin: 0;
     width: 100vw;
     height: 100vh;
-  }
-
-  a {
-    cursor: pointer;
+    a, button {
+      cursor: pointer;
+    }
   }
 </style>
 

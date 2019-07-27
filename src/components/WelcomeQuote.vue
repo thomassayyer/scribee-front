@@ -28,12 +28,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  p {
-    &.small {
-      font-size: .5rem;
-    }
-    &.large {
-      font-size: 2rem;
+  .welcome-quote {
+    max-width: 50%;
+    min-width: 300px;
+    p {
+      &.small {
+        font-size: .5rem;
+      }
+      &.large {
+        font-size: 2rem;
+      }
     }
   }
 </style>
