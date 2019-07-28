@@ -27,9 +27,9 @@ export default {
   },
   methods: {
     findUser(query) {
-      this.$store.dispatch('findUser', query).then(user => {
+      this.$store.dispatch('findUser', query).then(() => {
         this.$router.push('login')
-      }).catch(error => {
+      }).catch(() => {
         this.$router.push('register')
       })
     }

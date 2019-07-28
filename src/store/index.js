@@ -23,8 +23,11 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    findUser(state, user) {
+    user(state, user) {
       state.user = user
+    },
+    token(state, token) {
+      state.token = token
     }
   },
   actions: {
@@ -33,10 +36,26 @@ export const store = new Vuex.Store({
         Axios.get('users/find', {
           params: { query }
         }).then(response => {
-          commit('findUser', response.data)
+          commit('user', response.data)
           resolve()
-        }).catch(() => {
-          reject()
+        }).catch(error => {
+          if (error.response.status === 404) {
+            reject()
+          }
+        })
+      })
+    },
+    login({ commit }, { login, password }) {
+      return new Promise((resolve, reject) => {
+        Axios.post('users/login', {
+          login, password
+        }).then(response => {
+          commit('token', response.data.api_token)
+          resolve()
+        }).catch(error => {
+          if (error.response.status === 422) {
+            reject()
+          }
         })
       })
     }

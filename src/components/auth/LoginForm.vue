@@ -1,15 +1,13 @@
 <template>
   <div class="login-form">
     <login-welcome-message :name="name"/>
-    <form @submit.prevent="$emit('submit', { login, password })">
+    <form @submit.prevent="$emit('submit', { login: login || pseudo, password })">
       <p v-show="pseudo">{{ pseudo }}</p>
       <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." :value="pseudo" v-model="login" v-show="!pseudo"/>
       <password-input ref="password" name="password" placeholder="Votre mot de passe ..." v-model="password"/>
       <submit-button color="primary">C'est parti !</submit-button>
     </form>
-    <router-link :to="{ name: 'welcome' }" id="back">
-      Annuler
-    </router-link>
+    <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
   </div>
 </template>
 
@@ -28,6 +26,18 @@ export default {
     pseudo: {
       type: String,
       required: false
+    },
+    cancelRedirectsTo: {
+      type: Object,
+      required: false,
+      default: function () {
+        return { name: 'welcome' }
+      }
+    },
+    invalidCredentials: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   components: {
@@ -61,7 +71,7 @@ export default {
       margin-top: 30%;
       margin-bottom: 5px;
     }
-    #back {
+    #cancel {
       color: $main-color;
     }
   }

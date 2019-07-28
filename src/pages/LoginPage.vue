@@ -6,7 +6,7 @@
         <welcome-quote :quote="quote.quote" :author="quote.author" size="large"/>
       </vertical-container>
       <vertical-container id="form">
-        <login-form :name="name" :pseudo="pseudo" @submit="login"></login-form>
+        <login-form :name="name" :pseudo="pseudo" :invalid-credentials="invalidCredentials" @submit="login"></login-form>
         <app-license/>
       </vertical-container>
     </horizontal-container>
@@ -36,9 +36,18 @@ export default {
       return this.$store.getters.randomQuote
     }
   },
+  data() {
+    return {
+      invalidCredentials: false
+    }
+  },
   methods: {
     login(credentials) {
-      // TODO: Authenticate the user
+      this.$store.dispatch('login', credentials).then(() => {
+        this.$router.push('home')
+      }).catch(() => {
+        this.invalidCredentials = true
+      })
     }
   }
 }
