@@ -1,7 +1,7 @@
 <template>
   <div class="login-welcome-message">
-    <p v-if="name">Content de vous revoir <span>{{ name }}</span> !</p>
-    <p v-else>Déjà parmi nous ? Continuons !</p>
+    <p v-if="name">Content de vous revoir <span class="primary">{{ name }}</span> !</p>
+    <p v-else>Déjà parmi nous ? Continuons <span class="bold">ensemble</span> !</p>
   </div>
 </template>
 
@@ -23,7 +23,12 @@ export default {
     p {
       font-size: 18px;
       span {
-        color: $primary-color;
+        &.primary {
+          color: $primary-color;
+        }
+        &.bold {
+          font-weight: bold;
+        }
       }
     }
   }

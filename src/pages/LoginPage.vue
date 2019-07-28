@@ -7,6 +7,7 @@
       </vertical-container>
       <vertical-container id="form">
         <login-form :name="name" :pseudo="pseudo" @submit="login"></login-form>
+        <app-license/>
       </vertical-container>
     </horizontal-container>
   </div>
@@ -18,10 +19,11 @@ import VerticalContainer from '@/components/VerticalContainer'
 import AppLogo from '@/components/AppLogo'
 import WelcomeQuote from '@/components/WelcomeQuote'
 import LoginForm from '@/components/auth/LoginForm'
+import AppLicense from '@/components/AppLicense'
 
 export default {
   components: {
-    HorizontalContainer, VerticalContainer, AppLogo, WelcomeQuote, LoginForm
+    HorizontalContainer, VerticalContainer, AppLogo, WelcomeQuote, LoginForm, AppLicense
   },
   computed: {
     name() {
@@ -69,6 +71,13 @@ export default {
       }
       @media screen and (max-width: 700px) {
         width: 100%;
+      }
+      .app-license {
+        position: absolute;
+        bottom: 10px;
+        @media screen and (max-height: 600px) {
+          position: relative;
+        }
       }
     }
   }

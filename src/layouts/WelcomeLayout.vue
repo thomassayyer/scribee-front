@@ -1,6 +1,6 @@
 <template>
   <div class="welcome-layout">
-    <video-background src="honey.mp4" :brightness="60"/>
+    <video-background src="bg.mp4" :brightness="70" credits="Pixabay"/>
     <slot/>
   </div>
 </template>

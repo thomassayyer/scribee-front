@@ -6,9 +6,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.auth)) {
     if (!store.getters.loggedIn) {
       next({ name: 'login' })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (store.getters.loggedIn) {
+      next({ name: 'home' })
     } else {
       next()
     }

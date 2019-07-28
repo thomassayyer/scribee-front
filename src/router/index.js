@@ -12,25 +12,34 @@ export const router = new VueRouter({
     {
       path: '/',
       name: 'welcome',
-      component: WelcomePage
+      component: WelcomePage,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/home',
       name: 'home',
       component: HomePage,
       meta: {
-        requiresAuth: true
+        auth: true
       }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: LoginPage,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterPage
+      component: RegisterPage,
+      meta: {
+        guest: true
+      }
     }
   ]
 })

@@ -3,6 +3,7 @@
     <video autoplay muted loop preload="auto" ref="video">
       <source :src="require('@/assets/videos/'+src)" :type="getMediaType(src)"/>
     </video>
+    <small v-if="credits" class="credits">© {{ credits }}</small>
   </div>
 </template>
 
@@ -17,6 +18,10 @@ export default {
       type: Number,
       required: false,
       default: 100
+    },
+    credits: {
+      type: String,
+      required: false
     }
   },
   methods: {
@@ -43,6 +48,11 @@ export default {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .credits {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
     }
   }
 </style>
