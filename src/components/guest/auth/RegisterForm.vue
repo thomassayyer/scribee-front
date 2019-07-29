@@ -71,7 +71,7 @@ export default {
     },
     validatePassword() {
       if (this.user.password && this.user.password.length < 8) {
-        this.validation.password = "Votre mot de passe doit contenir plus de 8 caractères."
+        this.validation.password = "Votre mot de passe est trop court."
       } else {
         this.validation.password = null
       }
