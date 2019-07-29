@@ -2,7 +2,7 @@
   <div class="welcome-page">
     <vertical-container>
       <app-logo logo="white"/>
-      <welcome-quote :quote="quote.quote" :author="quote.author" size="large"/>
+      <guest-quote :quote="quote.quote" :author="quote.author" size="large"/>
       <search-input name="pseudo" placeholder="Votre email ou pseudo ..." icon="arrow-right" @search="findUser"/>
       <app-license/>
     </vertical-container>
@@ -12,13 +12,13 @@
 <script>
 import VerticalContainer from '@/components/VerticalContainer'
 import AppLogo from '@/components/AppLogo'
-import WelcomeQuote from '@/components/WelcomeQuote'
-import SearchInput from '@/components/SearchInput'
+import GuestQuote from '@/components/guest/GuestQuote'
+import SearchInput from '@/components/utils/inputs/SearchInput'
 import AppLicense from '@/components/AppLicense'
 
 export default {
   components: {
-    VerticalContainer, AppLogo, WelcomeQuote, SearchInput, AppLicense
+    VerticalContainer, AppLogo, GuestQuote, SearchInput, AppLicense
   },
   computed: {
     quote() {
@@ -41,7 +41,7 @@ export default {
   .welcome-page {
     width: 100%;
     height: 100%;
-    .welcome-quote {
+    .guest-quote {
       max-width: 45%;
     }
     .search-input {

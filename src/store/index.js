@@ -45,16 +45,26 @@ export const store = new Vuex.Store({
         })
       })
     },
-    login({ commit }, { login, password }) {
+    login({ commit }, credentials) {
       return new Promise((resolve, reject) => {
-        Axios.post('users/login', {
-          login, password
-        }).then(response => {
+        Axios.patch('users/token', credentials).then(response => {
           commit('token', response.data.api_token)
           resolve()
         }).catch(error => {
           if (error.response.status === 422) {
             reject()
+          }
+        })
+      })
+    },
+    register({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        Axios.post('users', user).then(response => {
+          commit('user', response.data)
+          resolve()
+        }).catch(error => {
+          if (error.response.status === 422) {
+            reject(error.response.data)
           }
         })
       })

@@ -5,6 +5,7 @@
       <p v-show="pseudo">{{ pseudo }}</p>
       <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." :value="pseudo" v-model="login" v-show="!pseudo"/>
       <password-input ref="password" name="password" placeholder="Votre mot de passe ..." v-model="password"/>
+      <login-invalid-credentials v-if="invalidCredentials"/>
       <submit-button color="primary">C'est parti !</submit-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
@@ -12,10 +13,11 @@
 </template>
 
 <script>
-import LoginWelcomeMessage from './LoginWelcomeMessage'
-import TextInput from '../TextInput'
-import PasswordInput from '../PasswordInput'
-import SubmitButton from '../SubmitButton'
+import LoginWelcomeMessage from '@/components/guest/auth/LoginWelcomeMessage'
+import LoginInvalidCredentials from './LoginInvalidCredentials'
+import TextInput from '@/components/utils/inputs/TextInput'
+import PasswordInput from '@/components/utils/inputs/PasswordInput'
+import SubmitButton from '@/components/utils/buttons/SubmitButton'
 
 export default {
   props: {
@@ -41,7 +43,7 @@ export default {
     }
   },
   components: {
-    LoginWelcomeMessage, TextInput, PasswordInput, SubmitButton
+    LoginWelcomeMessage, LoginInvalidCredentials, TextInput, PasswordInput, SubmitButton
   },
   data() {
     return {

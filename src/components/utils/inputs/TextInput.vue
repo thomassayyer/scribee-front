@@ -1,6 +1,7 @@
 <template>
   <div class="text-input">
-    <input ref="input" type="text" :name="name" :placeholder="placeholder" :value="value" @keyup="$emit('keyup', $event)" @input="$emit('input', $event.target.value)"/>
+    <input ref="input" type="text" :class="inputClass" :name="name" :placeholder="placeholder" :value="value" @keyup="$emit('keyup', $event)" @input="$emit('input', $event.target.value)" @change="$emit('change', $event)"/>
+    <p v-if="wrong && error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -19,7 +20,18 @@ export default {
     value: {
       type: String,
       required: false
+    },
+    wrong: {
+      type: Boolean,
+      required: false
+    },
+    error: {
+      type: String,
+      required: false
     }
+  },
+  computed: {
+    inputClass() { return this.wrong ? 'wrong' : '' }
   },
   methods: {
     focus() {
@@ -33,16 +45,23 @@ export default {
   @import '@/styles/color.scss';
   
   .text-input {
+    margin-bottom: 10px;
     input {
       border: 1px solid $secondary-color;
       border-radius: 20px;
       outline: 0;
       padding: 10px 20px;
       min-width: 200px;
-      margin-bottom: 10px;
       &:focus {
         border-color: $main-color;
       }
+      &.wrong {
+        border-color: $danger-color;
+      }
+    }
+    .error {
+      margin-top: 5px;
+      color: $danger-color;
     }
   }
 </style>

@@ -8,15 +8,15 @@
 
 <script>
 import MasterLayout from '@/layouts/MasterLayout'
-import WelcomeLayout from '@/layouts/WelcomeLayout'
+import GuestLayout from '@/layouts/GuestLayout'
 
 export default {
   components: {
-    MasterLayout, WelcomeLayout
+    MasterLayout, GuestLayout
   },
   computed: {
     layout() {
-      return (this.$store.getters.loggedIn ? "master" : "welcome") + "-layout"
+      return (this.$store.getters.loggedIn ? "master" : "guest") + "-layout"
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="submit-button">
-    <button type="submit" :class="color"><slot/></button>
+    <button type="submit" :class="color" :disabled="disabled"><slot/></button>
   </div>
 </template>
 
@@ -10,6 +10,14 @@ export default {
     color: {
       type: String,
       required: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+      formatter: disabled => {
+        return disabled ? 'disabled' : null
+      }
     }
   }
 }
@@ -28,14 +36,18 @@ export default {
       min-width: 200px;
       color: white;
       text-align: center;
-      &:hover {
+      &:hover:enabled {
         background: $main-color;
         border-color: $main-color;
+      }
+      &:disabled {
+        opacity: .7;
+        cursor: not-allowed;
       }
       &.primary {
         background: $primary-color;
         border-color: $primary-color;
-        &:hover {
+        &:hover:enabled {
           background: $primary-dark-color;
           border-color: $primary-dark-color;
         }
@@ -43,7 +55,7 @@ export default {
       &.warning {
         background: $warning-color;
         border-color: $warning-color;
-        &:hover {
+        &:hover:enabled {
           background: $warning-dark-color;
           border-color: $warning-dark-color;
         }
@@ -51,7 +63,7 @@ export default {
       &.danger {
         background: $danger-color;
         border-color: $danger-color;
-        &:hover {
+        &:hover:enabled {
           background: $danger-dark-color;
           border-color: $danger-dark-color;
         }
@@ -59,7 +71,7 @@ export default {
       &.success {
         background: $success-color;
         border-color: $success-color;
-        &:hover {
+        &:hover:enabled {
           background: $success-dark-color;
           border-color: $success-dark-color;
         }

@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome-quote">
+  <div class="guest-quote">
     <p :class="size">
       &quot;&nbsp;{{ quote }}&nbsp;&quot;
       <br><small>&ndash; {{ author }}</small>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .welcome-quote {
+  .guest-quote {
     max-width: 50%;
     min-width: 300px;
     p {
