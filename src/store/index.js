@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
       { author: "Isocrate", quote: "Nous voyons l'abeille se poser sur toutes les plantes et tirer de chacune le meilleur." },
       { author: "Montesquieu", quote: "Ce qui n'est point utile à l'essaim, n'est point utile à l'abeille." }
     ],
-    token: null,
+    token: localStorage.getItem('api_token') || null,
     user: { }
   },
   getters: {
@@ -48,7 +48,9 @@ export const store = new Vuex.Store({
     login({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         Axios.patch('users/token', credentials).then(response => {
-          commit('token', response.data.api_token)
+          const token = response.data.api_token
+          localStorage.setItem('api_token', token)
+          commit('token', token)
           resolve()
         }).catch(error => {
           if (error.response.status === 422) {
@@ -68,6 +70,19 @@ export const store = new Vuex.Store({
           }
         })
       })
+    },
+    retrieveCurrentUser(context) {
+      Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+      if (context.getters.loggedIn) {
+        Axios.get('users/current').then(response => {
+          context.commit('user', response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            context.commit('token', null)
+          }
+        });
+      }
     }
   }
 })

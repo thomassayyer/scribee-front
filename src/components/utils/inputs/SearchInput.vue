@@ -18,7 +18,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: 'Votre valeur ...'
+      default: 'Rechercher ...'
     },
     value: {
       type: String,

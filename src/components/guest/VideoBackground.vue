@@ -38,7 +38,7 @@ export default {
 
 <style lang="scss" scoped>
   .video-background {
-    z-index: -100;
+    z-index: -1;
     position: fixed;
     top: 0;
     right: 0;

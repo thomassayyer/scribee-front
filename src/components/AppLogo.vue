@@ -15,8 +15,7 @@ export default {
   },
   computed: {
     src() {
-      if (this.logo == 'white') return require('@/assets/logos/white.png')
-      return require('@/assets/logos/default.png')
+      return require('@/assets/logos/' + (this.logo || 'default') + '.png')
     }
   }
 }
