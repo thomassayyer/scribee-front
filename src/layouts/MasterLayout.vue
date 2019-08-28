@@ -1,6 +1,6 @@
 <template>
   <div class="master-layout">
-    <publish-modal v-if="isPublishModalShown" @close="hidePublishModal"/>
+    <publish-modal v-if="isPublishModalShown" @close="hidePublishModal" @submit="publishText"/>
     <app-navbar @publish="showPublishModal" @search="openCommunity" @select="openCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
@@ -40,6 +40,11 @@ export default {
       this.$router.push({
         name: 'community',
         params: { pseudo }
+      })
+    },
+    publishText(text) {
+      this.$store.dispatch('publishText', text).then(() => {
+        this.hidePublishModal()
       })
     }
   },

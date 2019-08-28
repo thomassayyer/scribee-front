@@ -115,6 +115,21 @@ export const store = new Vuex.Store({
           reject()
         })
       })
+    },
+    publishText(context, { community, text }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+        Axios.post('texts', {
+          community_pseudo: community,
+          text
+        }).then(resolve).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            context.commit('token', null)
+          }
+          reject()
+        })
+      })
     }
   }
 })
