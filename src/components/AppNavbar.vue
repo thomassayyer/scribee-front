@@ -16,7 +16,7 @@
       </ul>
       <ul class="navbar-center">
         <li class="navbar-item">
-          <search-input name="search" :autocomplete="autocomplete" @search="$emit('search', $event)" @select="$emit('select', $event)"/>
+          <search-input name="community" :autocomplete="autocomplete" @search="$emit('search', $event)" @select="$emit('select', $event)"/>
         </li>
       </ul>
       <ul class="navbar-right">
