@@ -1,6 +1,6 @@
 <template>
   <div class="text-area-input">
-    <textarea ref="textarea" :class="textareaClass" :name="name" :placeholder="placeholder" :value="value" @input="$emit('input', $event.target.value)"/>
+    <textarea ref="textarea" :class="textareaClass" :name="name" :placeholder="placeholder" :value="value" @keyup="$emit('keyup', $event)" @input="$emit('input', $event.target.value)"/>
     <p v-if="wrong && error" class="error">{{ error }}</p>
   </div>
 </template>
@@ -50,7 +50,6 @@ export default {
       outline: 0;
       padding: 15px 20px;
       min-width: 200px;
-      max-width: calc(100% - 20px);
       min-height: 100px;
       &:focus {
         border-color: $main-color;

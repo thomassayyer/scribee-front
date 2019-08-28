@@ -5,8 +5,8 @@
         <h3 slot="header" class="title">Publier un de vos textes</h3>
         <form slot="content" @submit="$emit('submit', text)">
           <search-input name="community" ref="community" placeholder="L'envoyer dans ..." :icon="null" :autocomplete="autocomplete" @select="updateCommunity"/>
-          <text-area-input name="text" ref="text" placeholder="Votre texte ..." v-model="text.text"></text-area-input>
-          <submit-button :disabled="!isEverythingFilled" color="primary">Publier !</submit-button>
+          <text-area-input name="text" ref="text" placeholder="Votre texte ..." v-model="text.text" @keyup="validateText" :wrong="validation.text !== null" :error="validation.text"></text-area-input>
+          <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">Publier !</submit-button>
         </form>
       </modal-content>
     </modal-wrapper>
@@ -36,12 +36,18 @@ export default {
       text: {
         community: null,
         text: null
+      },
+      validation: {
+        text: null
       }
     }
   },
   computed: {
     isEverythingFilled() {
       return this.text.community && this.text.text
+    },
+    isEverythingValid() {
+      return !this.validation.text
     }
   },
   methods: {
@@ -50,6 +56,13 @@ export default {
     },
     updateCommunity(pseudo) {
       this.text.community = pseudo;
+    },
+    validateText() {
+      if (this.text.text && this.text.text.length > 40000) {
+        this.validation.text = "Votre texte est trop long."
+      } else {
+        this.validation.text = null
+      }
     }
   }
 }
