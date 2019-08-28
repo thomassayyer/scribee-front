@@ -83,6 +83,9 @@ export default {
       } else {
         this.validation.password = null
       }
+    },
+    error(field, error) {
+      this.validation[field] = error
     }
   }
 }

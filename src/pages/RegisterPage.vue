@@ -17,12 +17,10 @@ export default {
         this.$router.push('login')
       }).catch((errors) => {
         if (errors.pseudo) {
-          this.$refs.form.$refs.pseudo.wrong = true
-          this.$refs.form.$refs.pseudo.error = "Ce pseudo n'est pas disponible."
+          this.$refs.form.error('pseudo', "Ce pseudo n'est pas disponible.")
         }
         if (errors.email) {
-          this.$refs.form.$refs.email.wrong = true
-          this.$refs.form.$refs.email.error = "Cette adresse email est déjà utilisée."
+          this.$refs.form.error('email', "Cette adresse email est déjà utilisée.")
         }
       })
     }
