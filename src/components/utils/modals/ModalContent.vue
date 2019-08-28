@@ -1,6 +1,6 @@
 <template>
   <div :class="'modal-content ' + size">
-    <modal-header @close="$emit('close')"><slot name="header"/></modal-header>
+    <modal-header @close="$emit('close')"><slot name="header"/><hr/></modal-header>
     <div class="content">
       <slot name="content"/>
     </div>
@@ -39,8 +39,10 @@ export default {
         width: 300px;
       }
     }
-    .content {
-      padding: 20px 10px;
+    .modal-header {
+      hr {
+        margin: 20px 0;
+      }
     }
   }
 </style>
