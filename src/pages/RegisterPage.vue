@@ -18,7 +18,7 @@ export default {
       }).catch((errors) => {
         if (errors.pseudo) {
           this.$refs.form.$refs.pseudo.wrong = true
-          this.$refs.form.$refs.pseudo.error = "Ce pseudo est déjà utilisé."
+          this.$refs.form.$refs.pseudo.error = "Ce pseudo n'est pas disponible."
         }
         if (errors.email) {
           this.$refs.form.$refs.email.wrong = true

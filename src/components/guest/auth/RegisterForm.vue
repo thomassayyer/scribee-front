@@ -6,7 +6,7 @@
       <text-input ref="name" name="name" placeholder="Votre nom ..." v-model="user.name"/>
       <text-input @keyup="validateEmail" ref="email" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input @keyup="validatePassword" ref="password" placeholder="Votre mot de passe ..." v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
-      <submit-button :disabled="!isEverythingValid" color="primary">M'enregistrer</submit-button>
+      <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</submit-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
   </div>
@@ -57,7 +57,7 @@ export default {
       return this.user.pseudo && this.user.name && this.user.email && this.user.password
     },
     isEverythingValid() {
-      return this.isEverythingFilled && !this.validation.email && !this.validation.password
+      return !this.validation.email && !this.validation.password
     }
   },
   methods: {

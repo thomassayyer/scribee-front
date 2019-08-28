@@ -2,8 +2,8 @@
   <div class="login-form">
     <login-welcome-message :name="name"/>
     <form @submit.prevent="$emit('submit', { login: login || pseudo, password })">
-      <p v-show="pseudo">{{ pseudo }}</p>
-      <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." :value="pseudo" v-model="login" v-show="!pseudo"/>
+      <p v-if="pseudo">{{ pseudo }}</p>
+      <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." :value="pseudo" v-model="login" v-else/>
       <password-input ref="password" name="password" placeholder="Votre mot de passe ..." v-model="password"/>
       <login-invalid-credentials v-if="invalidCredentials"/>
       <submit-button color="primary">C'est parti !</submit-button>

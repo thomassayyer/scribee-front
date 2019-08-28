@@ -3,7 +3,7 @@ import App from './App'
 import { store } from './store'
 import { router } from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faArrowRight, faUserCircle, faBell, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-library.add(faSearch, faArrowRight, faUserCircle, faBell, faPaperPlane)
+library.add(faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes)
 
 Vue.config.productionTip = false
 

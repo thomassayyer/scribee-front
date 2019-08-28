@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
     },
     login({ commit }, credentials) {
       return new Promise((resolve, reject) => {
-        Axios.patch('users/token', credentials).then(response => {
+        Axios.post('users/token', credentials).then(response => {
           const token = response.data.api_token
           localStorage.setItem('api_token', token)
           commit('token', token)
@@ -73,16 +73,48 @@ export const store = new Vuex.Store({
     },
     retrieveCurrentUser(context) {
       Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
-      if (context.getters.loggedIn) {
-        Axios.get('users/current').then(response => {
-          context.commit('user', response.data)
+      Axios.get('users/current').then(response => {
+        context.commit('user', response.data)
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('api_token')
+          context.commit('token', null)
+        }
+      })
+    },
+    logout(context) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+        Axios.delete('users/token').then(() => {
+          localStorage.removeItem('api_token')
+          context.commit('token', null)
+          resolve()
         }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
             context.commit('token', null)
           }
-        });
-      }
+          reject()
+        })
+      })
+    },
+    autocompleteCommunities(context, query) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+        Axios.get('communities/search', {
+          params: { query }
+        }).then(response => {
+          resolve(response.data.map(c => {
+            return { key: c.pseudo, value: c.name }
+          }))
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            context.commit('token', null)
+          }
+          reject()
+        })
+      })
     }
   }
 })
