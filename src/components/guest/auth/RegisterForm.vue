@@ -2,7 +2,7 @@
   <div class="register-form">
     <register-welcome-message/>
     <form @submit.prevent="$emit('submit', user)">
-      <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="user.pseudo"/>
+      <text-input @keyup="validatePseudo" ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="user.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
       <text-input ref="name" name="name" placeholder="Votre nom ..." v-model="user.name"/>
       <text-input @keyup="validateEmail" ref="email" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input @keyup="validatePassword" ref="password" placeholder="Votre mot de passe ..." v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
@@ -44,6 +44,7 @@ export default {
         password: null
       },
       validation: {
+        pseudo: null,
         email: null,
         password: null
       }
@@ -57,10 +58,17 @@ export default {
       return this.user.pseudo && this.user.name && this.user.email && this.user.password
     },
     isEverythingValid() {
-      return !this.validation.email && !this.validation.password
+      return !this.validation.email && !this.validation.password && !this.validation.pseudo
     }
   },
   methods: {
+    validatePseudo() {
+      if (this.user.pseudo && this.user.pseudo.length > 15) {
+        this.validation.pseudo = "Votre pseudo est trop long."
+      } else {
+        this.validation.pseudo = null
+      }
+    },
     validateEmail() {
       const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (!regexp.test(this.user.email)) {
