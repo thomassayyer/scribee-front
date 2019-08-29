@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import WelcomePage from '@/pages/WelcomePage'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
 import HomePage from '@/pages/HomePage'
 import ExplorePage from '@/pages/ExplorePage'
 import CommunityPage from '@/pages/CommunityPage'
-import LoginPage from '@/pages/LoginPage'
-import RegisterPage from '@/pages/RegisterPage'
+import DashboardPage from '@/pages/DashboardPage'
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,22 @@ export const router = new VueRouter({
       path: '/',
       name: 'welcome',
       component: WelcomePage,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginPage,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage,
       meta: {
         guest: true
       }
@@ -44,19 +61,11 @@ export const router = new VueRouter({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginPage,
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardPage,
       meta: {
-        guest: true
-      }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterPage,
-      meta: {
-        guest: true
+        auth: true
       }
     }
   ]

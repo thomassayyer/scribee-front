@@ -67,12 +67,12 @@ export default {
     }
     .wrapper {
       padding: 100px 0 20px 0;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 610px) {
         padding-top: 130px;
       }
       .search-input {
         margin-bottom: 20px;
-        @media screen and (min-width: 950px) {
+        @media screen and (min-width: 970px) {
           display: none;
         }
       }

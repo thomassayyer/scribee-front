@@ -26,6 +26,11 @@
           </a>
         </li>
         <li class="navbar-item">
+          <router-link :to="{ name: 'dashboard' }">
+            <font-awesome-icon icon="tachometer-alt" size="lg"/>
+          </router-link>
+        </li>
+        <li class="navbar-item">
           <font-awesome-icon icon="user-circle" size="lg"/>&nbsp;
           {{ pseudo }}&nbsp;
           <a @click="logout">
@@ -86,7 +91,7 @@ export default {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 610px) {
         flex-direction: column;
       }
       ul {
@@ -112,18 +117,21 @@ export default {
           }
         }
         &.navbar-center {
-          @media screen and (max-width: 950px) {
+          @media screen and (max-width: 970px) {
             display: none;
           }
         }
         &.navbar-right {
-          @media screen and (max-width: 600px) {
+          @media screen and (max-width: 610px) {
             margin-top: 0;
           }
         }
         .navbar-item {
           display: inline;
           margin: 0 10px;
+          a {
+            color: $main-color;
+          }
         }
       }
     }
