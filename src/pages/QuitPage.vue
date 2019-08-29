@@ -2,7 +2,7 @@
   <div class="quit-page">
     <vertical-container>
       <h2 class="header">
-        Êtes-vous certains de vouloir <strong>quitter {{ appName }}</strong> ?<br/>
+        Êtes-vous certain de vouloir <strong>quitter {{ appName }}</strong> ?<br/>
         <small>Cette action supprimera votre profil, les communautés que vous avez créées et les textes que vous avez publiés</small>
       </h2>
       <form @submit.prevent="quit">

@@ -1,6 +1,6 @@
 <template>
   <div class="master-layout">
-    <publish-modal v-if="isPublishModalShown" @close="hidePublishModal" @submit="publishText"/>
+    <publish-text-modal v-if="isPublishModalShown" @close="hidePublishModal" @submit="publishText"/>
     <app-navbar @publish="showPublishModal" @search="openCommunity" @select="openCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import PublishModal from '@/components/utils/modals/PublishModal'
+import PublishTextModal from '@/components/utils/modals/PublishTextModal'
 import AppNavbar from '@/components/AppNavbar'
 import VerticalContainer from '@/components/VerticalContainer'
 import SearchInput from '@/components/utils/inputs/SearchInput'
@@ -22,7 +22,7 @@ import AppLicense from '@/components/AppLicense'
 
 export default {
   components: {
-    PublishModal, AppNavbar, VerticalContainer, SearchInput, AppLicense
+    PublishTextModal, AppNavbar, VerticalContainer, SearchInput, AppLicense
   },
   data() {
     return {

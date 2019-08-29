@@ -4,7 +4,11 @@
       <vertical-container class="left">
         <card-base>
           <h2 slot="header">Modifier <strong>votre profil</strong></h2>
-          <edit-profile-form slot="content" ref="form" @submit="updateProfile"/>
+          <edit-profile-form slot="content" ref="editProfileForm" @submit="updateProfile"/>
+        </card-base>
+        <card-base>
+          <h2 slot="header">Créer <strong>une communauté</strong></h2>
+          <create-community-form slot="content" ref="createCommunityForm" @submit="createCommunity"/>
         </card-base>
       </vertical-container>
       <vertical-container class="right">
@@ -19,19 +23,29 @@ import HorizontalContainer from '@/components/HorizontalContainer'
 import VerticalContainer from '@/components/VerticalContainer'
 import CardBase from '@/components/utils/cards/CardBase'
 import EditProfileForm from '@/components/profile/EditProfileForm'
+import CreateCommunityForm from '@/components/community/CreateCommunityForm'
 
 export default {
   components: {
-    HorizontalContainer, VerticalContainer, CardBase, EditProfileForm
+    HorizontalContainer, VerticalContainer, CardBase, EditProfileForm, CreateCommunityForm
   },
   methods: {
     updateProfile(profile) {
       this.$store.dispatch('updateProfile', profile).catch(errors => {
         if (errors.email) {
-          this.$refs.form.error('email', "Cette adresse email est déjà utilisée.")
+          this.$refs.editProfileForm.error('email', "Cette adresse email est déjà utilisée.")
         }
         if (errors.old_password) {
-          this.$refs.form.error('oldPassword', "Le mot de passe est incorrect.")
+          this.$refs.editProfileForm.error('oldPassword', "Le mot de passe est incorrect.")
+        }
+      })
+    },
+    createCommunity(community) {
+      this.$store.dispatch('createCommunity', community).then(({ pseudo }) => {
+        this.$router.push({ name: 'community', params: { pseudo } })
+      }).catch(errors => {
+        if (errors.pseudo) {
+          this.$refs.createCommunityForm.error('pseudo', "Ce pseudo n'est pas disponible.")
         }
       })
     }
@@ -61,6 +75,9 @@ export default {
         }
         @media screen and (max-width: 700px) {
           width: 80%;
+        }
+        .card-base {
+          margin-bottom: 50px;
         }
       }
       &.right {
