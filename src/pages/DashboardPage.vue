@@ -3,8 +3,8 @@
     <horizontal-container>
       <vertical-container class="left">
         <card-base>
-          <h3 slot="header">Modifier <strong>votre profil</strong></h3>
-          <edit-profile-form slot="content" @submit="updateProfile"/>
+          <h2 slot="header">Modifier <strong>votre profil</strong></h2>
+          <edit-profile-form slot="content" ref="form" @submit="updateProfile"/>
         </card-base>
       </vertical-container>
       <vertical-container class="right">
@@ -26,7 +26,14 @@ export default {
   },
   methods: {
     updateProfile(profile) {
-      this.$store.dispatch('updateProfile', profile)
+      this.$store.dispatch('updateProfile', profile).catch(errors => {
+        if (errors.email) {
+          this.$refs.form.error('email', "Cette adresse email est déjà utilisée.")
+        }
+        if (errors.old_password) {
+          this.$refs.form.error('oldPassword', "Le mot de passe est incorrect.")
+        }
+      })
     }
   }
 }

@@ -41,7 +41,7 @@ export default {
       return this.profile.name && this.profile.email
     },
     isEverythingValid() {
-      return !this.validation.email && !this.validation.oldPassword && !this.validation.newPassword
+      return !this.validation.email && !this.validation.newPassword
     },
     pseudo() {
       return this.$store.state.user.pseudo
@@ -59,7 +59,7 @@ export default {
         this.validation.email = null
       }
     },
-    validateNewPassword(event) {
+    validateNewPassword() {
       if (this.profile.newPassword && this.profile.newPassword.length < 8) {
         this.validation.newPassword = "Votre nouveau mot de passe est trop court."
       } else {

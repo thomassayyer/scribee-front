@@ -87,20 +87,52 @@ export const store = new Vuex.Store({
         })
       })
     },
-    updateUser({ commit, state }, { name, email, newPassword, oldPassword }) {
-      Axios.defaults.headers.authorization = 'Bearer ' + state.token
-      Axios.put('users', {
-        name,
-        email,
-        'new_password': newPassword,
-        'old_password': oldPassword
-      }).then(response => {
-        commit('user', response.responseData)
-      }).catch(error => {
-        if (error.response.status === 401) {
+    updateProfile({ commit, state }, { name, email, newPassword, oldPassword }) {
+      let payload = { }
+      if (name !== state.user.name) {
+        payload.name = name
+      }
+      if (email !== state.user.email) {
+        payload.email = email
+      }
+      if (newPassword !== null) {
+        payload.new_password = newPassword
+      }
+      if (oldPassword !== null) {
+        payload.old_password = oldPassword
+      }
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.patch('users/current', payload).then(response => {
+          commit('user', response.data)
+          resolve()
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          if (error.response.status === 422) {
+            reject(error.response.data)
+          }
+        })
+      })
+    },
+    quit({ commit, state }, password) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.delete('users/current', { data: { password } }).then(() => {
           localStorage.removeItem('api_token')
           commit('token', null)
-        }
+          resolve()
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          if (error.response.status === 400) {
+            reject()
+          }
+        })
       })
     },
     logout({ commit, state }) {

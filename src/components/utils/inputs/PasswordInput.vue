@@ -16,7 +16,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: 'Votre valeur ...'
+      default: 'Votre mot de passe ...'
     },
     value: {
       type: String,

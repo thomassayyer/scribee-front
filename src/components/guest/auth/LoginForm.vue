@@ -4,9 +4,9 @@
     <form @submit.prevent="$emit('submit', { login: login || pseudo, password })">
       <p v-if="pseudo">{{ pseudo }}</p>
       <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="login" v-else/>
-      <password-input ref="password" name="password" placeholder="Votre mot de passe ..." v-model="password"/>
+      <password-input ref="password" name="password" v-model="password"/>
       <login-invalid-credentials v-if="invalidCredentials"/>
-      <submit-button color="primary">C'est parti !</submit-button>
+      <submit-button :disabled="!isEverythingFilled" color="primary">C'est parti !</submit-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
   </div>
@@ -49,6 +49,11 @@ export default {
     return {
       login: null,
       password: null
+    }
+  },
+  computed: {
+    isEverythingFilled() {
+      return (this.login || this.pseudo) && this.password
     }
   },
   mounted() {
