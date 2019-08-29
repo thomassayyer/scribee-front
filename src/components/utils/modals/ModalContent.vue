@@ -29,7 +29,7 @@ export default {
 
 .modal-content {
   width: 300px;
-  padding: 20px 30px;
+  padding: 30px;
   background-color: white;
   border-radius: 10px;
   border: 1px solid $secondary-color;

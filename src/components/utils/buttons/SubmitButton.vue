@@ -36,6 +36,7 @@ export default {
     min-width: 200px;
     color: white;
     text-align: center;
+    margin-top: 10px;
     &:hover:enabled {
       background: $main-color;
       border-color: $main-color;
