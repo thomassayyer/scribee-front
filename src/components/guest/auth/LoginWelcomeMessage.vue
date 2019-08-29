@@ -17,19 +17,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .login-welcome-message {
-    p {
-      font-size: 18px;
-      span {
-        &.primary {
-          color: $primary-color;
-        }
-        &.bold {
-          font-weight: bold;
-        }
+.login-welcome-message {
+  p {
+    font-size: 18px;
+    span {
+      &.primary {
+        color: $primary-color;
+      }
+      &.bold {
+        font-weight: bold;
       }
     }
   }
+}
 </style>

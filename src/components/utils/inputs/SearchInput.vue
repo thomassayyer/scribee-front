@@ -73,26 +73,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .search-input {
-    .text-input {
-      display: inline;
-    }
-    .search-link {
-      margin-left: 10px;
-    }
-    .results {
-      list-style-type: none;
-      border: 1px solid $secondary-color;
-      border-radius: 10px;
-      padding: 10px 20px;
-      margin-top: 10px;
-      position: absolute;
-      background: white;
-      li {
-        margin: 10px 0;
-      }
+.search-input {
+  .text-input {
+    display: inline;
+  }
+  .search-link {
+    margin-left: 10px;
+  }
+  .results {
+    list-style-type: none;
+    border: 1px solid $secondary-color;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    position: absolute;
+    background: white;
+    li {
+      margin: 10px 0;
     }
   }
+}
 </style>

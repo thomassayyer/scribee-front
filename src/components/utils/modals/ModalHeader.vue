@@ -18,12 +18,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .modal-header {
-    .close {
-      color: $secondary-color;
-      float: right;
-    }
+.modal-header {
+  .close {
+    color: $secondary-color;
+    float: right;
   }
+}
 </style>

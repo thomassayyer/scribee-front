@@ -55,27 +55,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .master-layout {
-    .background {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background: $light-background-color;
+.master-layout {
+  .background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: $light-background-color;
+  }
+  .wrapper {
+    padding: 100px 0 20px 0;
+    @media screen and (max-width: 610px) {
+      padding-top: 130px;
     }
-    .wrapper {
-      padding: 100px 0 20px 0;
-      @media screen and (max-width: 610px) {
-        padding-top: 130px;
-      }
-      .search-input {
-        margin-bottom: 20px;
-        @media screen and (min-width: 970px) {
-          display: none;
-        }
+    .search-input {
+      margin-bottom: 20px;
+      @media screen and (min-width: 970px) {
+        display: none;
       }
     }
   }
+}
 </style>

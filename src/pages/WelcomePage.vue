@@ -38,21 +38,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .welcome-page {
-    width: 100%;
-    height: 100%;
-    .guest-quote {
-      max-width: 45%;
-    }
-    .search-input {
-      margin-top: 5%;
-    }
-    .app-license {
-      position: absolute;
-      bottom: 10px;
-      @media screen and (max-height: 700px) {
-        position: relative;
-      }
+.welcome-page {
+  width: 100%;
+  height: 100%;
+  .guest-quote {
+    max-width: 45%;
+  }
+  .search-input {
+    margin-top: 5%;
+  }
+  .app-license {
+    position: absolute;
+    bottom: 10px;
+    @media screen and (max-height: 700px) {
+      position: relative;
     }
   }
+}
 </style>

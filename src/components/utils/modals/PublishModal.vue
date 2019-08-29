@@ -69,20 +69,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .publish-modal {
-    .title {
-      font-weight: bold;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .search-input {
-        margin-bottom: 10px;
-      }
+.publish-modal {
+  .title {
+    font-weight: bold;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .search-input {
+      margin-bottom: 10px;
     }
   }
+}
 </style>

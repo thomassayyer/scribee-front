@@ -37,22 +37,22 @@ export default {
 
 
 <style lang="scss" scoped>
-  .video-background {
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .credits {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-    }
+.video-background {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
+  .credits {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+}
 </style>

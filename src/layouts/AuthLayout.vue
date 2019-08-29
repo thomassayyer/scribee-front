@@ -33,40 +33,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .auth-layout {
-    width: 100%;
-    height: 100%;
-    #logo {
-      width: 70%;
-      @media screen and (max-width: 1200px) {
-        width: 50%;
-        .guest-quote {
-          max-width: 70%;
-        }
-      }
-      @media screen and (max-width: 700px) {
-        display: none;
+.auth-layout {
+  width: 100%;
+  height: 100%;
+  #logo {
+    width: 70%;
+    @media screen and (max-width: 1200px) {
+      width: 50%;
+      .guest-quote {
+        max-width: 70%;
       }
     }
-    #form {
-      width: 30%;
-      background: white;
-      color: $main-color;
-      @media screen and (max-width: 1200px) {
-        width: 50%;
-      }
-      @media screen and (max-width: 700px) {
-        width: 100%;
-      }
-      .app-license {
-        position: absolute;
-        bottom: 10px;
-        @media screen and (max-height: 800px) {
-          position: relative;
-        }
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
+  }
+  #form {
+    width: 30%;
+    background: white;
+    color: $main-color;
+    @media screen and (max-width: 1200px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
+    .app-license {
+      position: absolute;
+      bottom: 10px;
+      @media screen and (max-height: 800px) {
+        position: relative;
       }
     }
   }
+}
 </style>

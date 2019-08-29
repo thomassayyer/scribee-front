@@ -8,13 +8,13 @@
 </template>
 
 <style lang="scss" scoped>
-  .register-welcome-message {
-    p {
-      font-size: 18px;
-      .bold {
-        font-weight: bold;
-      }
+.register-welcome-message {
+  p {
+    font-size: 18px;
+    .bold {
+      font-weight: bold;
     }
   }
+}
 </style>
 

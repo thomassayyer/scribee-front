@@ -40,28 +40,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
-  
-  .text-area-input {
-    margin-bottom: 10px;
-    textarea {
-      border: 1px solid $secondary-color;
-      border-radius: 20px 20px 30px 20px;
-      outline: 0;
-      padding: 15px 20px;
-      min-width: 200px;
-      min-height: 100px;
-      &:focus {
-        border-color: $main-color;
-        border-radius: 10px 10px 30px 10px;
-      }
-      &.wrong {
-        border-color: $danger-color;
-      }
+@import '@/styles/color.scss';
+
+.text-area-input {
+  margin-bottom: 10px;
+  textarea {
+    border: 1px solid $secondary-color;
+    border-radius: 20px 20px 30px 20px;
+    outline: 0;
+    padding: 15px 20px;
+    min-width: 200px;
+    min-height: 100px;
+    &:focus {
+      border-color: $main-color;
+      border-radius: 10px 10px 30px 10px;
     }
-    .error {
-      margin-top: 5px;
-      color: $danger-color;
+    &.wrong {
+      border-color: $danger-color;
     }
   }
+  .error {
+    margin-top: 5px;
+    color: $danger-color;
+  }
+}
 </style>

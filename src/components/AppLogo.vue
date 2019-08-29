@@ -22,10 +22,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .app-logo {
-    max-width: 250px;
-    img {
-      width: 100%;
-    }
+.app-logo {
+  max-width: 250px;
+  img {
+    width: 100%;
   }
+}
 </style>

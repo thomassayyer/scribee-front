@@ -40,26 +40,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
-  
-  .text-input {
-    margin-bottom: 10px;
-    input {
-      border: 1px solid $secondary-color;
-      border-radius: 20px;
-      outline: 0;
-      padding: 10px 20px;
-      min-width: 200px;
-      &:focus {
-        border-color: $main-color;
-      }
-      &.wrong {
-        border-color: $danger-color;
-      }
+@import '@/styles/color.scss';
+
+.text-input {
+  margin-bottom: 10px;
+  input {
+    border: 1px solid $secondary-color;
+    border-radius: 20px;
+    outline: 0;
+    padding: 10px 20px;
+    min-width: 200px;
+    &:focus {
+      border-color: $main-color;
     }
-    .error {
-      margin-top: 5px;
-      color: $danger-color;
+    &.wrong {
+      border-color: $danger-color;
     }
   }
+  .error {
+    margin-top: 5px;
+    color: $danger-color;
+  }
+}
 </style>

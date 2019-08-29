@@ -29,13 +29,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .register-page {
-    .app-license {
-      position: absolute;
-      bottom: 10px;
-      @media screen and (max-height: 800px) {
-        position: relative;
-      }
+.register-page {
+  .app-license {
+    position: absolute;
+    bottom: 10px;
+    @media screen and (max-height: 800px) {
+      position: relative;
     }
   }
+}
 </style>

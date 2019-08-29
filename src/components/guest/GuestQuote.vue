@@ -28,16 +28,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .guest-quote {
-    max-width: 50%;
-    min-width: 300px;
-    p {
-      &.small {
-        font-size: .5rem;
-      }
-      &.large {
-        font-size: 2rem;
-      }
+.guest-quote {
+  max-width: 50%;
+  min-width: 300px;
+  p {
+    &.small {
+      font-size: .5rem;
+    }
+    &.large {
+      font-size: 2rem;
     }
   }
+}
 </style>

@@ -5,11 +5,11 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .login-invalid-credentials {
-    .message {
-      color: $danger-color;
-    }
+.login-invalid-credentials {
+  .message {
+    color: $danger-color;
   }
+}
 </style>

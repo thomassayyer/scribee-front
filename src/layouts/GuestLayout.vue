@@ -23,9 +23,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .guest-layout {
-    width: 100%;
-    height: 100%;
-    color: white;
-  }
+.guest-layout {
+  width: 100%;
+  height: 100%;
+  color: white;
+}
 </style>

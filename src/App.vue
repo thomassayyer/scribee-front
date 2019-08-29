@@ -23,16 +23,16 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/styles/typography.scss';
+@import '@/styles/typography.scss';
 
-  body {
-    margin: 0;
-    width: 100vw;
-    height: 100vh;
-    a, button {
-      cursor: pointer;
-    }
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  a, button {
+    cursor: pointer;
   }
+}
 </style>
 
 <style lang="scss" scoped>

@@ -62,19 +62,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .login-form {
-    padding: 50px;
-    .login-welcome-message {
-      margin-bottom: 30%;
-    }
-    .submit-button {
-      margin-top: 30%;
-      margin-bottom: 5px;
-    }
-    #cancel {
-      color: $main-color;
-    }
+.login-form {
+  padding: 50px;
+  .login-welcome-message {
+    margin-bottom: 30%;
   }
+  .submit-button {
+    margin-top: 30%;
+    margin-bottom: 5px;
+  }
+  #cancel {
+    color: $main-color;
+  }
+}
 </style>

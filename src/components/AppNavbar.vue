@@ -76,64 +76,64 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .app-navbar {
-    border-bottom: 1px solid $secondary-color;
-    background: white;
-    color: $main-color;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    .navbar {
+.app-navbar {
+  border-bottom: 1px solid $secondary-color;
+  background: white;
+  color: $main-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (max-width: 610px) {
+      flex-direction: column;
+    }
+    ul {
+      margin: 15px 40px;
+      list-style-type: none;
+      padding: 0;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
       align-items: center;
-      @media screen and (max-width: 610px) {
-        flex-direction: column;
-      }
-      ul {
-        margin: 15px 40px;
-        list-style-type: none;
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        &.navbar-left {
-          .app-logo {
-            width: 30px;
-          }
-          .navbar-item {
-            &.active {
-              a {
-                color: $main-color;
-              }
-            }
-            a {
-              color: $secondary-color;
-            }
-          }
-        }
-        &.navbar-center {
-          @media screen and (max-width: 970px) {
-            display: none;
-          }
-        }
-        &.navbar-right {
-          @media screen and (max-width: 610px) {
-            margin-top: 0;
-          }
+      &.navbar-left {
+        .app-logo {
+          width: 30px;
         }
         .navbar-item {
-          display: inline;
-          margin: 0 10px;
-          a {
-            color: $main-color;
+          &.active {
+            a {
+              color: $main-color;
+            }
           }
+          a {
+            color: $secondary-color;
+          }
+        }
+      }
+      &.navbar-center {
+        @media screen and (max-width: 970px) {
+          display: none;
+        }
+      }
+      &.navbar-right {
+        @media screen and (max-width: 610px) {
+          margin-top: 0;
+        }
+      }
+      .navbar-item {
+        display: inline;
+        margin: 0 10px;
+        a {
+          color: $main-color;
         }
       }
     }
   }
+}
 </style>

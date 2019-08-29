@@ -25,24 +25,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/color.scss';
+@import '@/styles/color.scss';
 
-  .modal-content {
-    width: 300px;
-    padding: 20px 30px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid $secondary-color;
-    &.large {
-      width: 600px;
-      @media screen and (max-width: 700px) {
-        width: 300px;
-      }
-    }
-    .modal-header {
-      hr {
-        margin: 20px 0;
-      }
+.modal-content {
+  width: 300px;
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid $secondary-color;
+  &.large {
+    width: 600px;
+    @media screen and (max-width: 700px) {
+      width: 300px;
     }
   }
+  .modal-header {
+    hr {
+      margin: 20px 0;
+    }
+  }
+}
 </style>
