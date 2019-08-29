@@ -33,9 +33,9 @@
         <li class="navbar-item">
           <font-awesome-icon icon="user-circle" size="lg"/>&nbsp;
           {{ pseudo }}&nbsp;
-          <a @click="logout">
+          <router-link :to="{ name: 'logout' }">
             <font-awesome-icon icon="power-off"/>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -63,14 +63,12 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$store.dispatch('logout').finally(() => {
-        this.$router.push({ name: 'welcome' })
-      })
-    },
     autocomplete(query) {
       return this.$store.dispatch('autocompleteCommunities', query)
     }
+  },
+  created() {
+    this.$store.dispatch('retrieveCurrentUser')
   }
 }
 </script>

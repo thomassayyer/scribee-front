@@ -3,9 +3,9 @@
     <register-welcome-message/>
     <form @submit.prevent="$emit('submit', user)">
       <text-input @keyup="validatePseudo" ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="user.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
-      <text-input ref="name" name="name" placeholder="Votre nom ..." v-model="user.name"/>
-      <text-input @keyup="validateEmail" ref="email" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
-      <password-input @keyup="validatePassword" ref="password" placeholder="Votre mot de passe ..." v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
+      <text-input name="name" placeholder="Votre nom ..." v-model="user.name"/>
+      <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
+      <password-input @keyup="validatePassword" placeholder="Votre mot de passe ..." v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
       <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</submit-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
@@ -20,10 +20,6 @@ import SubmitButton from '@/components/utils/buttons/SubmitButton'
 
 export default {
   props: {
-    name: {
-      type: String,
-      required: false
-    },
     cancelRedirectsTo: {
       type: Object,
       required: false,
@@ -101,7 +97,7 @@ export default {
   }
   .submit-button {
     margin-top: 20%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   #cancel {
     color: $main-color;

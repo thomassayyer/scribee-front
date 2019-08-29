@@ -76,6 +76,15 @@ export default {
         border-color: $success-dark-color;
       }
     }
+    &.white {
+      background: white;
+      border-color: white;
+      color: $main-color;
+      &:hover:enabled {
+        background: $light-background-color;
+        border-color: $light-background-color;
+      }
+    }
   }
 }
 </style>

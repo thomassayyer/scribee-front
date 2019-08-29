@@ -7,6 +7,8 @@ import HomePage from '@/pages/HomePage'
 import ExplorePage from '@/pages/ExplorePage'
 import CommunityPage from '@/pages/CommunityPage'
 import DashboardPage from '@/pages/DashboardPage'
+import LogoutPage from '@/pages/LogoutPage'
+import QuitPage from '@/pages/QuitPage'
 
 Vue.use(VueRouter);
 
@@ -64,6 +66,22 @@ export const router = new VueRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardPage,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: LogoutPage,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/quit',
+      name: 'quit',
+      component: QuitPage,
       meta: {
         auth: true
       }

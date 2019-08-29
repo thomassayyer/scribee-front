@@ -7,6 +7,7 @@ Axios.defaults.baseURL = 'http://localhost:8000/api'
 
 export const store = new Vuex.Store({
   state: {
+    appName: 'ScriBee',
     quotes: [
       { author: "Isocrate", quote: "Nous voyons l'abeille se poser sur toutes les plantes et tirer de chacune le meilleur." },
       { author: "Montesquieu", quote: "Ce qui n'est point utile à l'essaim, n'est point utile à l'abeille." }
@@ -71,36 +72,56 @@ export const store = new Vuex.Store({
         })
       })
     },
-    retrieveCurrentUser(context) {
-      Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
-      Axios.get('users/current').then(response => {
-        context.commit('user', response.data)
-      }).catch(error => {
-        if (error.response.status === 401) {
-          localStorage.removeItem('api_token')
-          context.commit('token', null)
-        }
-      })
-    },
-    logout(context) {
+    retrieveCurrentUser({ commit, state }) {
       return new Promise((resolve, reject) => {
-        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
-        Axios.delete('users/token').then(() => {
-          localStorage.removeItem('api_token')
-          context.commit('token', null)
-          resolve()
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('users/current').then(response => {
+          commit('user', response.data)
+          resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
-            context.commit('token', null)
+            commit('token', null)
           }
           reject()
         })
       })
     },
-    autocompleteCommunities(context, query) {
+    updateUser({ commit, state }, { name, email, newPassword, oldPassword }) {
+      Axios.defaults.headers.authorization = 'Bearer ' + state.token
+      Axios.put('users', {
+        name,
+        email,
+        'new_password': newPassword,
+        'old_password': oldPassword
+      }).then(response => {
+        commit('user', response.responseData)
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('api_token')
+          commit('token', null)
+        }
+      })
+    },
+    logout({ commit, state }) {
       return new Promise((resolve, reject) => {
-        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.delete('users/token').then(() => {
+          localStorage.removeItem('api_token')
+          commit('token', null)
+          resolve()
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject()
+        })
+      })
+    },
+    autocompleteCommunities({ commit, state }, query) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.get('communities/search', {
           params: { query }
         }).then(response => {
@@ -110,22 +131,22 @@ export const store = new Vuex.Store({
         }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
-            context.commit('token', null)
+            commit('token', null)
           }
           reject()
         })
       })
     },
-    publishText(context, { community, text }) {
+    publishText({ commit, state }, { community, text }) {
       return new Promise((resolve, reject) => {
-        Axios.defaults.headers.authorization = 'Bearer ' + context.state.token
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.post('texts', {
           community_pseudo: community,
           text
         }).then(resolve).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
-            context.commit('token', null)
+            commit('token', null)
           }
           reject()
         })

@@ -47,9 +47,6 @@ export default {
         this.hidePublishModal()
       })
     }
-  },
-  created() {
-    this.$store.dispatch('retrieveCurrentUser')
   }
 }
 </script>
@@ -75,6 +72,9 @@ export default {
       @media screen and (min-width: 970px) {
         display: none;
       }
+    }
+    .page {
+      width: 100%;
     }
   }
 }
