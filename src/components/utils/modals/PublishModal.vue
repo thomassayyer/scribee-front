@@ -3,7 +3,7 @@
     <modal-wrapper>
       <modal-content @close="$emit('close')">
         <h3 slot="header" class="title">Publier un de vos textes</h3>
-        <form slot="content" @submit="$emit('submit', text)">
+        <form slot="content" @submit.prevent="$emit('submit', text)">
           <search-input name="community" ref="community" placeholder="L'envoyer dans ..." :icon="null" :autocomplete="autocomplete" @select="updateCommunity"/>
           <text-area-input name="text" ref="text" placeholder="Votre texte ..." v-model="text.text" @keyup="validateText" :wrong="validation.text !== null" :error="validation.text"></text-area-input>
           <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">Publier !</submit-button>

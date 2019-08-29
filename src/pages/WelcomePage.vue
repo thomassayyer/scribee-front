@@ -41,6 +41,11 @@ export default {
 .welcome-page {
   width: 100%;
   height: 100%;
+  .app-logo {
+    @media screen and (max-height: 700px) {
+      width: 200px;
+    }
+  }
   .guest-quote {
     max-width: 45%;
   }

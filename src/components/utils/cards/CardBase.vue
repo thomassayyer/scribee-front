@@ -26,6 +26,7 @@ export default {
 
 .card-base {
   width: 100%;
+  max-width: 500px;
   background: $secondary-color;
   color: white;
   border-radius: 20px;
