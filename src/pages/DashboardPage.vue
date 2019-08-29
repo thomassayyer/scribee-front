@@ -41,14 +41,36 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-page {
+  width: 100%;
   .horizontal-container {
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+    }
     .vertical-container {
       padding: 0 50px;
+      @media screen and (max-width: 970px) {
+        padding: 30px;
+      }
+      @media screen and (max-width: 610px) {
+        padding: 30px 0;
+      }
       &.left {
         width: 30%;
+        @media screen and (max-width: 1200px) {
+          width: 50%;
+        }
+        @media screen and (max-width: 700px) {
+          width: 80%;
+        }
       }
       &.right {
         width: 70%;
+        @media screen and (max-width: 1200px) {
+          width: 50%;
+        }
+        @media screen and (max-width: 700px) {
+          width: 80%;
+        }
       }
     }
   }

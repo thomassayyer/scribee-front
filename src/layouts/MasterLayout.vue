@@ -65,7 +65,7 @@ export default {
   .wrapper {
     padding: 120px 0 20px 0;
     @media screen and (max-width: 610px) {
-      padding-top: 130px;
+      padding-top: 140px;
     }
     .search-input {
       margin-bottom: 20px;

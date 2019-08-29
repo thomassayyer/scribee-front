@@ -30,6 +30,9 @@ export default {
   color: white;
   border-radius: 20px;
   padding: 50px 0;
+  @media screen and (max-width: 700px) {
+    padding: 30px 0;
+  }
   .header {
     padding-bottom: 30px;
   }
