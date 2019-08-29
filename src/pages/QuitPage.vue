@@ -6,7 +6,7 @@
         <small>Cette action supprimera votre profil, les communautés que vous avez créées et les textes que vous avez publiés</small>
       </h2>
       <form @submit.prevent="quit">
-        <password-input v-model="password"/>
+        <password-input v-model="password" :wrong="passwordError !== null" :error="passwordError"/>
         <submit-button :disabled="!password" color="danger">Quitter {{ appName }} :(</submit-button>
       </form>
       <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
@@ -39,13 +39,16 @@ export default {
   },
   data() {
     return {
-      password: null
+      password: null,
+      passwordError: null
     }
   },
   methods: {
     quit() {
       this.$store.dispatch('quit', this.password).then(() => {
         this.$router.push({ name: 'welcome' })
+      }).catch(() => {
+        this.passwordError = "Mot de passe incorrect."
       })
     }
   }
