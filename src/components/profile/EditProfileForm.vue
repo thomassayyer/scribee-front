@@ -1,6 +1,6 @@
 <template>
   <div class="edit-profile-form">
-    <form @submit.prevent="$emit('submit', profile)">
+    <form @submit.prevent="submit">
       <p class="pseudo">{{ pseudo }}</p>
       <text-input name="name" placeholder="Votre nom ..." v-model="profile.name"/>
       <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="profile.email" :wrong="validation.email !== null" :error="validation.email"/>
@@ -65,6 +65,11 @@ export default {
       } else {
         this.validation.newPassword = null
       }
+    },
+    submit() {
+      this.$emit('submit', this.profile)
+      this.profile.oldPassword = null
+      this.profile.newPassword = null
     },
     error(field, error) {
       this.validation[field] = error
