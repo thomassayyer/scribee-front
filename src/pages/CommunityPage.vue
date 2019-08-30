@@ -1,6 +1,9 @@
 <template>
   <div class="community-page">
-    <app-wrapper>
+    <horizontal-container v-if="notFound">
+      Cette communauté n'existe pas
+    </horizontal-container>
+    <app-wrapper v-else>
       <card-base slot="left" class="left">
         <h2 slot="header">
           <strong>{{ name }}</strong>&nbsp;<span class="pseudo">{{ pseudo }}</span><br/>
@@ -37,6 +40,7 @@ export default {
   },
   data() {
     return {
+      notFound: false,
       pseudo: null,
       name: null,
       description: null,
@@ -52,17 +56,22 @@ export default {
   created() {
     this.reload()
     EventBus.$on('textPublished', text => {
-      this.texts.push(text)
+      if (text.community.pseudo === this.pseudo) {
+        this.texts.push(text)
+      }
     })
   },
   methods: {
     reload(pseudo) {
       this.$store.dispatch('getCommunity', pseudo || this.$route.params.pseudo).then(community => {
+        this.notFound = false
         this.pseudo = community.pseudo
         this.name = community.name
         this.description = community.description
         this.createdAt = moment(community.created_at).fromNow()
         this.texts = community.texts
+      }).catch(() => {
+        this.notFound = true
       })
     },
     readText(text) {

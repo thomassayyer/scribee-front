@@ -3,7 +3,7 @@ import App from './App'
 import { store } from './store'
 import { router } from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes, faTachometerAlt, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-library.add(faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes, faTachometerAlt)
+library.add(faSearch, faArrowRight, faUserCircle, faPaperPlane, faPowerOff, faTimes, faTachometerAlt, faThumbsUp)
 
 Vue.config.productionTip = false
 

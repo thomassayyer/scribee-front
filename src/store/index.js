@@ -52,9 +52,7 @@ export const store = new Vuex.Store({
           commit('user', response.data)
           resolve()
         }).catch(error => {
-          if (error.response.status === 404) {
-            reject()
-          }
+          reject(error.response.data)
         })
       })
     },
@@ -66,9 +64,7 @@ export const store = new Vuex.Store({
           commit('token', token)
           resolve()
         }).catch(error => {
-          if (error.response.status === 422) {
-            reject()
-          }
+          reject(error.response.data)
         })
       })
     },
@@ -78,9 +74,7 @@ export const store = new Vuex.Store({
           commit('user', response.data)
           resolve()
         }).catch(error => {
-          if (error.response.status === 422) {
-            reject(error.response.data)
-          }
+          reject(error.response.data)
         })
       })
     },
@@ -95,7 +89,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -123,9 +117,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          if (error.response.status === 422) {
-            reject(error.response.data)
-          }
+          reject(error.response.data)
         })
       })
     },
@@ -141,9 +133,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          if (error.response.status === 400) {
-            reject()
-          }
+          reject(error.response.data)
         })
       })
     },
@@ -159,7 +149,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -177,7 +167,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -194,7 +184,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -225,7 +215,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -240,7 +230,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     },
@@ -254,7 +244,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('api_token')
             commit('token', null)
           }
-          reject()
+          reject(error.response.data)
         })
       })
     }
