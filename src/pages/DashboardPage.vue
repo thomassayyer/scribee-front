@@ -24,7 +24,7 @@
           <h2 slot="header">Les <strong>communautés</strong> que vous avez créées</h2>
           <horizontal-container slot="content">
             <div class="card-wrapper" v-for="community in communities" :key="community.pseudo">
-              <community-card :pseudo="community.pseudo" :description="community.description" @explore="exploreCommunity(community)"/>
+              <community-card :pseudo="community.pseudo" :description="community.description" :timestamp="new Date(community.created_at)" @explore="exploreCommunity(community)"/>
             </div>
           </horizontal-container>
         </card-base>

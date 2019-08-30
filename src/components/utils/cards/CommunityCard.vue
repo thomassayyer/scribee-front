@@ -3,6 +3,8 @@
     <card-base>
       <h3 slot="header" class="header">
         <span class="pseudo">{{ pseudo }}</span>
+        <br/>
+        <small>Créée {{ formattedTimestamp }}</small>
       </h3>
       <div slot="content" class="content">
         <p class="description monospace">{{ cutDescription }}</p>
@@ -13,6 +15,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+import 'moment/locale/fr'
 import CardBase from './CardBase'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
@@ -25,14 +29,21 @@ export default {
     description: {
       required: true,
       type: String
+    },
+    timestamp: {
+      required: true,
+      type: Date
     }
   },
   components: {
     CardBase, DefaultButton
   },
   computed: {
+    formattedTimestamp() {
+      return moment(this.timestamp).fromNow()
+    },
     cutDescription() {
-      return this.description.substring(0, 100) + (this.description.length > 100 ? ' [...]' : '')
+      return this.description.substring(0, 50) + (this.description.length > 50 ? ' [...]' : '')
     }
   }
 }
@@ -49,6 +60,9 @@ export default {
     .header {
       .pseudo {
         color: $primary-color;
+      }
+      small {
+        color: $secondary-color;
       }
     }
     .content {
