@@ -28,6 +28,7 @@ export default {
   width: 100%;
   max-width: 500px;
   background: $secondary-color;
+  border: 1px solid $secondary-color;
   color: white;
   border-radius: 20px;
   padding: 50px 0;

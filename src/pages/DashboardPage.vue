@@ -12,7 +12,22 @@
         </card-base>
       </vertical-container>
       <vertical-container class="right">
-        Right
+        <card-base>
+          <h2 slot="header">Les <strong>textes</strong> que vous avez publiés</h2>
+          <horizontal-container slot="content">
+            <div class="card-wrapper" v-for="text in texts" :key="text.id">
+              <text-card :author="text.user.pseudo" :community="text.community.pseudo" :text="text.text" :timestamp="new Date(text.updated_at)" @read="readText(text)"/>
+            </div>
+          </horizontal-container>
+        </card-base>
+        <card-base>
+          <h2 slot="header">Les <strong>communautés</strong> que vous avez créées</h2>
+          <horizontal-container slot="content">
+            <div class="card-wrapper" v-for="community in communities" :key="community.pseudo">
+              <community-card :pseudo="community.pseudo" :description="community.description" @explore="exploreCommunity(community)"/>
+            </div>
+          </horizontal-container>
+        </card-base>
       </vertical-container>
     </horizontal-container>
   </div>
@@ -24,10 +39,22 @@ import VerticalContainer from '@/components/VerticalContainer'
 import CardBase from '@/components/utils/cards/CardBase'
 import EditProfileForm from '@/components/profile/EditProfileForm'
 import CreateCommunityForm from '@/components/community/CreateCommunityForm'
+import TextCard from '@/components/utils/cards/TextCard'
+import CommunityCard from '@/components/utils/cards/CommunityCard'
 
 export default {
   components: {
-    HorizontalContainer, VerticalContainer, CardBase, EditProfileForm, CreateCommunityForm
+    HorizontalContainer, VerticalContainer, CardBase, EditProfileForm, CreateCommunityForm, TextCard, CommunityCard
+  },
+  data() {
+    return {
+      texts: [ ]
+    }
+  },
+  computed: {
+    communities() {
+      return this.$store.getters.communities
+    }
   },
   methods: {
     updateProfile(profile) {
@@ -48,25 +75,40 @@ export default {
           this.$refs.createCommunityForm.error('pseudo', "Ce pseudo n'est pas disponible.")
         }
       })
+    },
+    exploreCommunity({ pseudo }) {
+      this.$router.push({
+        name: 'community',
+        params: { pseudo }
+      })
+    },
+    readText(text) {
+      console.log(text)
     }
+  },
+  created() {
+    this.$store.dispatch('getTexts').then(texts => {
+      this.texts = texts
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/color.scss';
+
 .dashboard-page {
   width: 100%;
   .horizontal-container {
+    align-items: flex-start;
     @media screen and (max-width: 700px) {
       flex-direction: column;
+      align-items: center;
     }
     .vertical-container {
       padding: 0 50px;
       @media screen and (max-width: 970px) {
         padding: 30px;
-      }
-      @media screen and (max-width: 610px) {
-        padding: 30px 0;
       }
       &.left {
         width: 30%;
@@ -76,8 +118,8 @@ export default {
         @media screen and (max-width: 700px) {
           width: 80%;
         }
-        .card-base {
-          margin-bottom: 50px;
+        @media screen and (max-width: 610px) {
+          padding: 30px 0 0 0;
         }
       }
       &.right {
@@ -88,6 +130,26 @@ export default {
         @media screen and (max-width: 700px) {
           width: 80%;
         }
+        @media screen and (max-width: 610px) {
+          padding: 0;
+        }
+        .card-base {
+          max-width: none;
+          background: white;
+          color: $main-color;
+          h2 {
+            padding: 0 20px;
+          }
+          .horizontal-container {
+            flex-wrap: wrap;
+            .card-wrapper {
+              padding: 20px;
+            }
+          }
+        }
+      }
+      .card-base {
+        margin-bottom: 50px;
       }
     }
   }

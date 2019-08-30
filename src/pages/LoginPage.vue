@@ -13,10 +13,10 @@ export default {
   },
   computed: {
     name() {
-      return this.$store.state.user.name
+      return this.$store.getters.user.name
     },
     pseudo() {
-      return this.$store.state.user.pseudo
+      return this.$store.getters.user.pseudo
     }
   },
   data() {

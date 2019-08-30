@@ -4,7 +4,7 @@
       <text-input @keyup="validatePseudo" name="pseudo" placeholder="Pseudo ..." v-model="community.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
       <text-input name="name" placeholder="Nom ..." v-model="community.name"/>
       <text-area-input @keyup="validateDescription" name="description" placeholder="Description ..." v-model="community.description" :wrong="validation.description !== null" :error="validation.description"></text-area-input>
-      <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Créer la communauté</submit-button>
+      <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Créer la communauté</default-button>
     </form>
   </div>
 </template>
@@ -12,11 +12,11 @@
 <script>
 import TextInput from '@/components/utils/inputs/TextInput'
 import TextAreaInput from '@/components/utils/inputs/TextAreaInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   components: {
-    TextInput, TextAreaInput, SubmitButton
+    TextInput, TextAreaInput, DefaultButton
   },
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
 @import '@/styles/color.scss';
 
 .create-community-form {
-  .submit-button {
+  .default-button {
     margin-top: 30px;
   }
 }

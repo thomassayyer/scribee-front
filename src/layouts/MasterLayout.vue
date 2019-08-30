@@ -1,10 +1,10 @@
 <template>
   <div class="master-layout">
     <publish-text-modal v-if="isPublishModalShown" @close="hidePublishModal" @submit="publishText"/>
-    <app-navbar @publish="showPublishModal" @search="openCommunity" @select="openCommunity"/>
+    <app-navbar @publish="showPublishModal" @search="exploreCommunity" @select="exploreCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
-      <search-input name="search" @select="openCommunity"/>
+      <search-input name="search" @select="exploreCommunity"/>
       <div class="page">
         <slot/>
         <app-license/>
@@ -36,7 +36,7 @@ export default {
     hidePublishModal() {
       this.isPublishModalShown = false
     },
-    openCommunity(pseudo) {
+    exploreCommunity(pseudo) {
       this.$router.push({
         name: 'community',
         params: { pseudo }
@@ -45,6 +45,10 @@ export default {
     publishText(text) {
       this.$store.dispatch('publishText', text).then(() => {
         this.hidePublishModal()
+        this.$router.push({
+          name: 'community',
+          params: { pseudo: text.community }
+        })
       })
     }
   }

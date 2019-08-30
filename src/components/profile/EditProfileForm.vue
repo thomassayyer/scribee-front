@@ -6,7 +6,7 @@
       <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="profile.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input placeholder="Votre mot de passe actuel ..." v-model="profile.oldPassword" :wrong="validation.oldPassword !== null" :error="validation.oldPassword"/>
       <password-input @keyup="validateNewPassword" placeholder="Votre nouveau mot de passe ..." v-model="profile.newPassword" :wrong="validation.newPassword !== null" :error="validation.newPassword"/>
-      <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Modifier mon profil</submit-button>
+      <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Modifier mon profil</default-button>
     </form>
     <router-link :to="{ name: 'quit' }" id="quit">Quitter {{ appName }} :(</router-link>
   </div>
@@ -15,11 +15,11 @@
 <script>
 import TextInput from '@/components/utils/inputs/TextInput'
 import PasswordInput from '@/components/utils/inputs/PasswordInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   components: {
-    TextInput, PasswordInput, SubmitButton
+    TextInput, PasswordInput, DefaultButton
   },
   data() {
     return {
@@ -44,10 +44,10 @@ export default {
       return !this.validation.email && !this.validation.newPassword
     },
     pseudo() {
-      return this.$store.state.user.pseudo
+      return this.$store.getters.user.pseudo
     },
     appName() {
-      return this.$store.state.appName
+      return this.$store.getters.appName
     }
   },
   methods: {
@@ -76,10 +76,8 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('retrieveCurrentUser').then(user => {
-      this.profile.name = user.name
-      this.profile.email = user.email
-    })
+    this.profile.name = this.$store.getters.user.name
+    this.profile.email = this.$store.getters.user.email
   }
 }
 </script>
@@ -88,7 +86,7 @@ export default {
 @import '@/styles/color.scss';
 
 .edit-profile-form {
-  .submit-button {
+  .default-button {
     margin-top: 30px;
     margin-bottom: 10px;
   }

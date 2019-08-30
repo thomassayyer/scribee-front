@@ -6,7 +6,7 @@
       <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="login" v-else/>
       <password-input ref="password" name="password" v-model="password"/>
       <login-invalid-credentials v-if="invalidCredentials"/>
-      <submit-button :disabled="!isEverythingFilled" color="primary">C'est parti !</submit-button>
+      <default-button :disabled="!isEverythingFilled" color="primary">C'est parti !</default-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
   </div>
@@ -17,7 +17,7 @@ import LoginWelcomeMessage from '@/components/guest/auth/LoginWelcomeMessage'
 import LoginInvalidCredentials from './LoginInvalidCredentials'
 import TextInput from '@/components/utils/inputs/TextInput'
 import PasswordInput from '@/components/utils/inputs/PasswordInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   props: {
@@ -43,7 +43,7 @@ export default {
     }
   },
   components: {
-    LoginWelcomeMessage, LoginInvalidCredentials, TextInput, PasswordInput, SubmitButton
+    LoginWelcomeMessage, LoginInvalidCredentials, TextInput, PasswordInput, DefaultButton
   },
   data() {
     return {
@@ -74,7 +74,7 @@ export default {
   .login-welcome-message {
     margin-bottom: 30%;
   }
-  .submit-button {
+  .default-button {
     margin-top: 30%;
     margin-bottom: 10px;
   }

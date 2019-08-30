@@ -7,7 +7,7 @@
       </h2>
       <form @submit.prevent="quit">
         <password-input v-model="password" :wrong="passwordError !== null" :error="passwordError"/>
-        <submit-button :disabled="!password" color="danger">Quitter {{ appName }} :(</submit-button>
+        <default-button :disabled="!password" color="danger">Quitter {{ appName }} :(</default-button>
       </form>
       <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
     </vertical-container>
@@ -17,7 +17,7 @@
 <script>
 import VerticalContainer from '@/components/VerticalContainer'
 import PasswordInput from '@/components/utils/inputs/PasswordInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   props: {
@@ -30,11 +30,11 @@ export default {
     }
   },
   components: {
-    VerticalContainer, PasswordInput, SubmitButton
+    VerticalContainer, PasswordInput, DefaultButton
   },
   computed: {
     appName() {
-      return this.$store.state.appName
+      return this.$store.getters.appName
     }
   },
   data() {

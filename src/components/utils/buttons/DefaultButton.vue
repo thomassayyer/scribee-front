@@ -1,6 +1,6 @@
 <template>
-  <div class="submit-button">
-    <button type="submit" :class="color" :disabled="disabled"><slot/></button>
+  <div class="default-button">
+    <button :class="color" :disabled="disabled" @click="$emit('click')"><slot/></button>
   </div>
 </template>
 
@@ -14,10 +14,7 @@ export default {
     disabled: {
       type: Boolean,
       required: false,
-      default: false,
-      formatter: disabled => {
-        return disabled ? 'disabled' : null
-      }
+      default: false
     }
   }
 }
@@ -26,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/color.scss';
 
-.submit-button {
+.default-button {
   button {
     background: $secondary-color;
     border: 1px solid $secondary-color;

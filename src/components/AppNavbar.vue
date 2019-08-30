@@ -59,16 +59,13 @@ export default {
       return this.$route.name === 'explore' ? 'navbar-item active' : 'navbar-item'
     },
     pseudo() {
-      return this.$store.state.user.pseudo
+      return this.$store.getters.user.pseudo
     }
   },
   methods: {
     autocomplete(query) {
       return this.$store.dispatch('autocompleteCommunities', query)
     }
-  },
-  created() {
-    this.$store.dispatch('retrieveCurrentUser')
   }
 }
 </script>
@@ -84,6 +81,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 99;
   .navbar {
     display: flex;
     flex-direction: row;

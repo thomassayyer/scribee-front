@@ -6,7 +6,7 @@
       <text-input name="name" placeholder="Votre nom ..." v-model="user.name"/>
       <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input @keyup="validatePassword" v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
-      <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</submit-button>
+      <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</default-button>
     </form>
     <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
   </div>
@@ -16,7 +16,7 @@
 import RegisterWelcomeMessage from './RegisterWelcomeMessage'
 import TextInput from '@/components/utils/inputs/TextInput'
 import PasswordInput from '@/components/utils/inputs/PasswordInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   props: {
@@ -29,7 +29,7 @@ export default {
     }
   },
   components: {
-    RegisterWelcomeMessage, TextInput, PasswordInput, SubmitButton
+    RegisterWelcomeMessage, TextInput, PasswordInput, DefaultButton
   },
   data() {
     return {
@@ -95,7 +95,7 @@ export default {
   .register-welcome-message {
     margin-bottom: 20%;
   }
-  .submit-button {
+  .default-button {
     margin-top: 20%;
     margin-bottom: 10px;
   }

@@ -6,7 +6,7 @@
         <form slot="content" @submit.prevent="$emit('submit', text)">
           <search-input name="community" placeholder="L'envoyer dans ..." :icon="null" :autocomplete="autocomplete" @select="updateCommunity"/>
           <text-area-input name="text" placeholder="Votre texte ..." v-model="text.text" @keyup="validateText" :wrong="validation.text !== null" :error="validation.text"></text-area-input>
-          <submit-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">Publier !</submit-button>
+          <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">Publier !</default-button>
         </form>
       </modal-content>
     </modal-wrapper>
@@ -18,7 +18,7 @@ import ModalWrapper from './ModalWrapper'
 import ModalContent from './ModalContent'
 import SearchInput from '@/components/utils/inputs/SearchInput'
 import TextAreaInput from '@/components/utils/inputs/TextAreaInput'
-import SubmitButton from '@/components/utils/buttons/SubmitButton'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
   props: {
@@ -29,7 +29,7 @@ export default {
     }
   },
   components: {
-    ModalWrapper, ModalContent, SearchInput, TextAreaInput, SubmitButton
+    ModalWrapper, ModalContent, SearchInput, TextAreaInput, DefaultButton
   },
   data() {
     return {
