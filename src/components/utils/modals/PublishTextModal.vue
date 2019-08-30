@@ -21,13 +21,6 @@ import TextAreaInput from '@/components/utils/inputs/TextAreaInput'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
-  props: {
-    size: {
-      required: false,
-      type: String,
-      default: ''
-    }
-  },
   components: {
     ModalWrapper, ModalContent, SearchInput, TextAreaInput, DefaultButton
   },
