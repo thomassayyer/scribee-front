@@ -4,7 +4,7 @@
     <app-navbar @publish="showPublishModal" @search="exploreCommunity" @select="exploreCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
-      <search-input name="search" @select="exploreCommunity"/>
+      <search-input @select="exploreCommunity"/>
       <div class="page">
         <slot/>
         <app-license/>
@@ -19,6 +19,7 @@ import AppNavbar from '@/components/AppNavbar'
 import VerticalContainer from '@/components/VerticalContainer'
 import SearchInput from '@/components/utils/inputs/SearchInput'
 import AppLicense from '@/components/AppLicense'
+import { EventBus } from '@/bus'
 
 export default {
   components: {
@@ -43,12 +44,13 @@ export default {
       })
     },
     publishText(text) {
-      this.$store.dispatch('publishText', text).then(() => {
+      this.$store.dispatch('publishText', text).then(createdText => {
         this.hidePublishModal()
         this.$router.push({
           name: 'community',
-          params: { pseudo: text.community }
+          params: { pseudo: createdText.community_pseudo }
         })
+        EventBus.$emit('textPublished', createdText)
       })
     }
   }

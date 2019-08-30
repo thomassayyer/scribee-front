@@ -2,9 +2,9 @@
   <div class="text-card">
     <card-base>
       <h3 slot="header" class="header">
-        <span class="user">{{ author }}</span>
+        {{ author.name }}&nbsp;<span class="author-pseudo">{{ author.pseudo }}</span>
         <br/>
-        <small>Dans {{ community }}, {{ formattedTimestamp }}</small>
+        <small>Dans {{ community.pseudo }}, {{ updatedAt }}</small>
       </h3>
       <div slot="content" class="content">
         <p class="text monospace">{{ cutText }}</p>
@@ -24,11 +24,11 @@ export default {
   props: {
     author: {
       required: true,
-      type: String
+      type: Object
     },
     community: {
       required: true,
-      type: String
+      type: Object
     },
     text: {
       required: true,
@@ -43,7 +43,7 @@ export default {
     CardBase, DefaultButton
   },
   computed: {
-    formattedTimestamp() {
+    updatedAt() {
       return moment(this.timestamp).fromNow()
     },
     cutText() {
@@ -62,7 +62,7 @@ export default {
     color: $main-color;
     background: white;
     .header {
-      .user {
+      .author-pseudo {
         color: $primary-color;
       }
       small {

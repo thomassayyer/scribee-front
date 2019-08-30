@@ -3,7 +3,7 @@
     <vertical-container>
       <app-logo logo="white"/>
       <guest-quote :quote="quote.quote" :author="quote.author" size="large"/>
-      <search-input name="pseudo" placeholder="Votre email ou pseudo ..." icon="arrow-right" @search="findUser"/>
+      <search-input placeholder="Votre email ou pseudo ..." icon="arrow-right" @search="findUser"/>
       <app-license/>
     </vertical-container>
   </div>

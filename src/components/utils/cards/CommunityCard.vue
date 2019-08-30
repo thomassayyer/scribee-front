@@ -2,9 +2,9 @@
   <div class="community-card">
     <card-base>
       <h3 slot="header" class="header">
-        <span class="pseudo">{{ pseudo }}</span>
+        {{ name }}&nbsp;<span class="pseudo">{{ pseudo }}</span>
         <br/>
-        <small>Créée {{ formattedTimestamp }}</small>
+        <small>Créée {{ createdAt }}</small>
       </h3>
       <div slot="content" class="content">
         <p class="description monospace">{{ cutDescription }}</p>
@@ -26,6 +26,10 @@ export default {
       required: true,
       type: String
     },
+    name: {
+      required: true,
+      type: String
+    },
     description: {
       required: true,
       type: String
@@ -39,7 +43,7 @@ export default {
     CardBase, DefaultButton
   },
   computed: {
-    formattedTimestamp() {
+    createdAt() {
       return moment(this.timestamp).fromNow()
     },
     cutDescription() {
@@ -59,7 +63,7 @@ export default {
     background: white;
     .header {
       .pseudo {
-        color: $primary-color;
+        color: $warning-color;
       }
       small {
         color: $secondary-color;

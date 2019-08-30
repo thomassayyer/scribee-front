@@ -1,6 +1,6 @@
 <template>
   <div class="search-input">
-    <text-input :name="name" :placeholder="placeholder" :value="value" v-model="query" @keyup="updateResults" @keyup.enter="search"/>
+    <text-input :placeholder="placeholder" :value="value" v-model="query" @keyup="updateResults" @keyup.enter="search"/>
     <a class="search-link" @click="search" v-if="icon"><font-awesome-icon :icon="icon"/></a>
     <ul class="results" v-if="results.length">
       <li v-for="result in results" :key="result.key">
@@ -18,10 +18,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
     placeholder: {
       type: String,
       required: false,

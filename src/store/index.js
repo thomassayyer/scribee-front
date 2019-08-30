@@ -187,7 +187,9 @@ export const store = new Vuex.Store({
         Axios.post('texts', {
           community_pseudo: community,
           text
-        }).then(resolve).catch(error => {
+        }).then(response => {
+          resolve(response.data)
+        }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
             commit('token', null)
@@ -233,6 +235,20 @@ export const store = new Vuex.Store({
         Axios.get('communities').then(response => {
           commit('communities', response.data)
           resolve()
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject()
+        })
+      })
+    },
+    getCommunity({ commit, state }, pseudo) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/' + pseudo).then(response => {
+          resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
