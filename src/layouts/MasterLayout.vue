@@ -45,7 +45,7 @@ export default {
     },
     publishText(text) {
       this.$store.dispatch('publishText', text).then(createdText => {
-        this.hidePublishModal()
+        this.hidePublishTextModal()
         this.$router.push({
           name: 'community',
           params: { pseudo: createdText.community_pseudo }
@@ -70,12 +70,12 @@ export default {
   }
   .wrapper {
     padding: 120px 0 20px 0;
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: 500px) {
       padding-top: 140px;
     }
     .search-input {
       margin-bottom: 20px;
-      @media screen and (min-width: 970px) {
+      @media screen and (min-width: 900px) {
         display: none;
       }
     }

@@ -25,7 +25,7 @@ export default {
       type: Object,
       required: false,
       default: function () {
-        return { name: 'dashboard' }
+        return { name: 'home' }
       }
     }
   },

@@ -2,8 +2,8 @@
   <div class="create-community-form">
     <form @submit.prevent="$emit('submit', community)">
       <text-input @keyup="validatePseudo" name="pseudo" placeholder="Pseudo ..." v-model="community.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
-      <text-input name="name" placeholder="Nom ..." v-model="community.name"/>
-      <text-area-input @keyup="validateDescription" name="description" placeholder="Description ..." v-model="community.description" :wrong="validation.description !== null" :error="validation.description"></text-area-input>
+      <text-input name="name" placeholder="Nom ..." v-model.trim="community.name"/>
+      <text-area-input @keyup="validateDescription" name="description" placeholder="Description ..." v-model.trim="community.description" :wrong="validation.description !== null" :error="validation.description"></text-area-input>
       <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Créer la communauté</default-button>
     </form>
   </div>

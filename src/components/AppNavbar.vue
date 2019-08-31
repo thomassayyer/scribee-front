@@ -26,13 +26,10 @@
           </a>
         </li>
         <li class="navbar-item">
-          <router-link :to="{ name: 'dashboard' }">
-            <font-awesome-icon icon="tachometer-alt" size="lg"/>
-          </router-link>
+          <font-awesome-icon :icon="scoreIcon" size="lg"/>&nbsp;
+          <strong>{{ score }}</strong>
         </li>
         <li class="navbar-item">
-          <font-awesome-icon icon="user-circle" size="lg"/>&nbsp;
-          {{ pseudo }}&nbsp;
           <router-link :to="{ name: 'logout' }">
             <font-awesome-icon icon="power-off"/>
           </router-link>
@@ -58,8 +55,23 @@ export default {
     exploreClass() {
       return this.$route.name === 'explore' ? 'navbar-item active' : 'navbar-item'
     },
-    pseudo() {
-      return this.$store.getters.user.pseudo
+    score() {
+      return this.$store.getters.user.score
+    },
+    scoreIcon() {
+      if (this.score >= 20) {
+        return 'thermometer-full'
+      }
+      if (this.score >= 15) {
+        return 'thermometer-three-quarters'
+      }
+      if (this.score >= 10) {
+        return 'thermometer-half'
+      }
+      if (this.score >= 5) {
+        return 'thermometer-quarter'
+      }
+      return 'thermometer-empty'
     }
   },
   methods: {
@@ -87,7 +99,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: 500px) {
       flex-direction: column;
     }
     ul {
@@ -113,12 +125,12 @@ export default {
         }
       }
       &.navbar-center {
-        @media screen and (max-width: 970px) {
+        @media screen and (max-width: 900px) {
           display: none;
         }
       }
       &.navbar-right {
-        @media screen and (max-width: 610px) {
+        @media screen and (max-width: 500px) {
           margin-top: 0;
         }
       }

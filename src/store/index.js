@@ -13,13 +13,11 @@ export const store = new Vuex.Store({
       { author: "Montesquieu", quote: "Ce qui n'est point utile à l'essaim, n'est point utile à l'abeille." }
     ],
     token: localStorage.getItem('api_token') || null,
-    user: { },
-    communities: [ ]
+    user: { }
   },
   getters: {
     appName: state => state.appName,
     user: state => state.user,
-    communities: state => state.communities,
     loggedIn: state => state.token !== null,
     randomQuote: state => state.quotes[Math.floor(Math.random()*state.quotes.length)]
   },
@@ -29,20 +27,6 @@ export const store = new Vuex.Store({
     },
     token(state, token) {
       state.token = token
-    },
-    communities(state, communities) {
-      state.communities = communities
-    },
-    addCommunity(state, community) {
-      state.communities.push(community)
-    },
-    updateCommunity(state, community) {
-      const index = state.communities.findIndex(c => c.pseudo === community.pseudo)
-      state.communities.splice(index, 1, community)
-    },
-    removeCommunity(state, pseudo) {
-      const index = state.communities.findIndex(c => c.pseudo === pseudo)
-      state.communities.splice(index, 1)
     }
   },
   actions: {
@@ -194,7 +178,6 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.post('communities', community).then(response => {
-          commit('addCommunity', response.data)
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
@@ -221,12 +204,11 @@ export const store = new Vuex.Store({
         })
       })
     },
-    retrieveCommunities({ commit, state }) {
+    getCommunities({ commit, state }) {
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.get('communities').then(response => {
-          commit('communities', response.data)
-          resolve()
+          resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
             localStorage.removeItem('api_token')
@@ -262,7 +244,6 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.patch('communities/' + pseudo, payload).then(response => {
-          commit('updateCommunity', response.data)
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
@@ -277,7 +258,6 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.delete('communities/' + pseudo).then(response => {
-          commit('removeCommunity', pseudo)
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {

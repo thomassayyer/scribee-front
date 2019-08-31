@@ -1,15 +1,20 @@
 <template>
   <div class="community-page">
     <confirm-modal v-if="isConfirmDeleteModalShown" question="Êtes-vous certain de vouloir supprimer cette communauté ?" button-color="danger" @close="hideConfirmDeleteModal" @submit="deleteCommunity"/>
+    <text-modal v-if="modalText" :author="modalText.user" :community="modalText.community" :text="modalText.text" :updated-at="new Date(modalText.updated_at)" :suggestions="modalText.suggestions" @close="hideTextModal"/>
     <vertical-container class="not-found" v-if="notFound">
       <h2>
         <strong>Oops !</strong><br/>
         <small>Cette communauté n'existe pas</small>
       </h2>
-      <default-button color="primary" @click="$router.push({ name: 'dashboard' })">Créer une communauté</default-button>
+      <default-button color="primary" @click="$router.push({ name: 'home' })">Créer une communauté</default-button>
     </vertical-container>
     <app-wrapper v-else>
-      <card-base slot="left" class="left" v-if="!ownCommunity">
+      <card-base slot="left" class="left" v-if="ownCommunity">
+        <h2 slot="header">Modifier <strong>la communauté</strong></h2>
+        <edit-community-form slot="content" :pseudo="pseudo" :name="name || ''" :description="description || ''" @delete="showConfirmDeleteModal" @submit="updateCommunity"></edit-community-form>
+      </card-base>
+      <card-base slot="left" class="left" v-else>
         <h2 slot="header">
           <strong>{{ name }}</strong>&nbsp;<span class="pseudo">{{ pseudo }}</span><br/>
           <small>Créée {{ createdAt }}</small>
@@ -17,10 +22,6 @@
         <p slot="content" class="description monospace">
           {{ description }}
         </p>
-      </card-base>
-      <card-base slot="left" class="left" v-else>
-        <h2 slot="header">Modifier <strong>la communauté</strong></h2>
-        <edit-community-form slot="content" :pseudo="pseudo" :name="name" :description="description" @delete="showConfirmDeleteModal" @submit="updateCommunity"></edit-community-form>
       </card-base>
       <card-base slot="right" class="right">
         <h2 slot="header">Les <strong>textes</strong> de la communauté</h2>
@@ -32,7 +33,7 @@
             </small>
           </p>
           <div class="card-wrapper" v-for="text in texts" :key="text.id">
-            <text-card :author="text.user" :community="text.community" :text="text.text" :timestamp="new Date(text.updated_at)" @read="readText(text)"/>
+            <text-card :author="text.user" :community="text.community" :text="text.text" :updated-at="new Date(text.updated_at)" @read="readText(text)"/>
           </div>
         </horizontal-container>
       </card-base>
@@ -52,11 +53,12 @@ import DefaultButton from '@/components/utils/buttons/DefaultButton'
 import EditCommunityForm from '@/components/community/EditCommunityForm'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ConfirmModal from '@/components/utils/modals/ConfirmModal'
+import TextModal from '@/components/utils/modals/TextModal'
 import { bus } from '@/bus'
 
 export default {
   components: {
-    AppWrapper, CardBase, TextCard, HorizontalContainer, VerticalContainer, DefaultButton, EditCommunityForm, FontAwesomeIcon, ConfirmModal
+    AppWrapper, CardBase, TextCard, HorizontalContainer, VerticalContainer, DefaultButton, EditCommunityForm, FontAwesomeIcon, ConfirmModal, TextModal
   },
   data() {
     return {
@@ -67,10 +69,7 @@ export default {
       ownerPseudo: null,
       texts: [ ],
       isConfirmDeleteModalShown: false,
-      isTextModalShown: false,
-      modalText: {
-        id: null
-      }
+      modalText: null
     }
   },
   computed: {
@@ -82,7 +81,7 @@ export default {
     }
   },
   watch: {
-    '$route.params.pseudo': pseudo => this.reload()
+    '$route.params.pseudo': () => this.reload()
   },
   created() {
     this.reload()
@@ -124,11 +123,10 @@ export default {
       })
     },
     hideTextModal() {
-      this.isTextModalShown = false
+      this.modalText = null
     },
     readText(text) {
       this.modalText = text
-      this.isTextModalShown = true
     }
   }
 }

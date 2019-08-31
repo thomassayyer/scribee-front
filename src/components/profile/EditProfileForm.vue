@@ -2,8 +2,8 @@
   <div class="edit-profile-form">
     <form @submit.prevent="submit">
       <p>{{ pseudo }}</p>
-      <text-input name="name" placeholder="Votre nom ..." v-model="profile.name"/>
-      <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="profile.email" :wrong="validation.email !== null" :error="validation.email"/>
+      <text-input name="name" placeholder="Votre nom ..." v-model.trim="profile.name"/>
+      <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model.trim="profile.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input placeholder="Votre mot de passe actuel ..." v-model="profile.oldPassword" :wrong="validation.oldPassword !== null" :error="validation.oldPassword"/>
       <password-input @keyup="validateNewPassword" placeholder="Votre nouveau mot de passe ..." v-model="profile.newPassword" :wrong="validation.newPassword !== null" :error="validation.newPassword"/>
       <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="white">Modifier mon profil</default-button>

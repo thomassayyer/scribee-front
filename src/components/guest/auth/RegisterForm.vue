@@ -2,9 +2,9 @@
   <div class="register-form">
     <register-welcome-message/>
     <form @submit.prevent="$emit('submit', user)">
-      <text-input @keyup="validatePseudo" ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="user.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
-      <text-input name="name" placeholder="Votre nom ..." v-model="user.name"/>
-      <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="user.email" :wrong="validation.email !== null" :error="validation.email"/>
+      <text-input @keyup="validatePseudo" ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model.trim="user.pseudo" :wrong="validation.pseudo !== null" :error="validation.pseudo"/>
+      <text-input name="name" placeholder="Votre nom ..." v-model.trim="user.name"/>
+      <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model.trim="user.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input @keyup="validatePassword" v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
       <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</default-button>
     </form>

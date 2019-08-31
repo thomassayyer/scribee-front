@@ -5,7 +5,7 @@
         <h3 slot="header" class="title">Publier un de vos textes</h3>
         <form slot="content" @submit.prevent="$emit('submit', text)">
           <search-input placeholder="L'envoyer dans ..." :icon="null" :autocomplete="autocomplete" @select="updateCommunity"/>
-          <text-area-input name="text" placeholder="Votre texte ..." v-model="text.text" @keyup="validateText" :wrong="validation.text !== null" :error="validation.text"></text-area-input>
+          <text-area-input name="text" placeholder="Votre texte ..." v-model.trim="text.text" @keyup="validateText" :wrong="validation.text !== null" :error="validation.text"></text-area-input>
           <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">Publier !</default-button>
         </form>
       </modal-content>

@@ -4,7 +4,7 @@
       <h3 slot="header" class="header">
         {{ name }}&nbsp;<span class="pseudo">{{ pseudo }}</span>
         <br/>
-        <small>Créée {{ createdAt }}</small>
+        <small>Créée {{ formattedCreatedAt }}</small>
       </h3>
       <div slot="content" class="content">
         <p class="description monospace">{{ cutDescription }}</p>
@@ -34,7 +34,7 @@ export default {
       required: true,
       type: String
     },
-    timestamp: {
+    createdAt: {
       required: true,
       type: Date
     }
@@ -43,8 +43,8 @@ export default {
     CardBase, DefaultButton
   },
   computed: {
-    createdAt() {
-      return moment(this.timestamp).fromNow()
+    formattedCreatedAt() {
+      return moment(this.createdAt).fromNow()
     },
     cutDescription() {
       return this.description.substring(0, 50) + (this.description.length > 50 ? ' [...]' : '')

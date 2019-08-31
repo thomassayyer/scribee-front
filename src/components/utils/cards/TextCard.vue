@@ -4,7 +4,7 @@
       <h3 slot="header" class="header">
         {{ author.name }}&nbsp;<span class="author-pseudo">{{ author.pseudo }}</span>
         <br/>
-        <small>Dans {{ community.pseudo }}, {{ updatedAt }}</small>
+        <small>Dans {{ community.pseudo }}, {{ formattedUpdatedAt }}</small>
       </h3>
       <div slot="content" class="content">
         <p class="text monospace">{{ cutText }}</p>
@@ -34,7 +34,7 @@ export default {
       required: true,
       type: String
     },
-    timestamp: {
+    updatedAt: {
       required: true,
       type: Date
     }
@@ -43,8 +43,8 @@ export default {
     CardBase, DefaultButton
   },
   computed: {
-    updatedAt() {
-      return moment(this.timestamp).fromNow()
+    formattedUpdatedAt() {
+      return moment(this.updatedAt).fromNow()
     },
     cutText() {
       return this.text.substring(0, 100) + (this.text.length > 100 ? ' [...]' : '')

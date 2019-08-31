@@ -6,7 +6,6 @@ import RegisterPage from '@/pages/RegisterPage'
 import HomePage from '@/pages/HomePage'
 import ExplorePage from '@/pages/ExplorePage'
 import CommunityPage from '@/pages/CommunityPage'
-import DashboardPage from '@/pages/DashboardPage'
 import LogoutPage from '@/pages/LogoutPage'
 import QuitPage from '@/pages/QuitPage'
 
@@ -58,14 +57,6 @@ export const router = new VueRouter({
       path: '/community/:pseudo',
       name: 'community',
       component: CommunityPage,
-      meta: {
-        auth: true
-      }
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: DashboardPage,
       meta: {
         auth: true
       }

@@ -3,7 +3,7 @@
     <login-welcome-message :name="name"/>
     <form @submit.prevent="$emit('submit', { login: login || pseudo, password })">
       <p v-if="pseudo">{{ pseudo }}</p>
-      <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model="login" v-else/>
+      <text-input ref="pseudo" name="pseudo" placeholder="Votre pseudo ..." v-model.trim="login" v-else/>
       <password-input ref="password" name="password" v-model="password"/>
       <login-invalid-credentials v-if="invalidCredentials"/>
       <default-button :disabled="!isEverythingFilled" color="primary">C'est parti !</default-button>
