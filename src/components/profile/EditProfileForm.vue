@@ -1,7 +1,7 @@
 <template>
   <div class="edit-profile-form">
     <form @submit.prevent="submit">
-      <p class="pseudo">{{ pseudo }}</p>
+      <p>{{ pseudo }}</p>
       <text-input name="name" placeholder="Votre nom ..." v-model="profile.name"/>
       <text-input @keyup="validateEmail" name="email" placeholder="Votre adresse email ..." v-model="profile.email" :wrong="validation.email !== null" :error="validation.email"/>
       <password-input placeholder="Votre mot de passe actuel ..." v-model="profile.oldPassword" :wrong="validation.oldPassword !== null" :error="validation.oldPassword"/>
@@ -18,14 +18,28 @@ import PasswordInput from '@/components/utils/inputs/PasswordInput'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
+  props: {
+    pseudo: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     TextInput, PasswordInput, DefaultButton
   },
   data() {
     return {
       profile: {
-        name: null,
-        email: null,
+        name: this.name,
+        email: this.email,
         oldPassword: null,
         newPassword: null
       },
@@ -42,9 +56,6 @@ export default {
     },
     isEverythingValid() {
       return !this.validation.email && !this.validation.newPassword
-    },
-    pseudo() {
-      return this.$store.getters.user.pseudo
     },
     appName() {
       return this.$store.getters.appName
@@ -74,10 +85,6 @@ export default {
     error(field, error) {
       this.validation[field] = error
     }
-  },
-  created() {
-    this.profile.name = this.$store.getters.user.name
-    this.profile.email = this.$store.getters.user.email
   }
 }
 </script>

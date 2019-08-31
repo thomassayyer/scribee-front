@@ -33,6 +33,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   border: 1px solid $secondary-color;
+  margin: 30px 0;
   &.large {
     width: 600px;
     @media screen and (max-width: 700px) {

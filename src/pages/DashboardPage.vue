@@ -3,7 +3,7 @@
     <app-wrapper>
       <card-base slot="left">
         <h2 slot="header">Modifier <strong>votre profil</strong></h2>
-        <edit-profile-form slot="content" ref="editProfileForm" @submit="updateProfile"/>
+        <edit-profile-form slot="content" ref="editProfileForm" :pseudo="currentPseudo" :name="currentName" :email="currentEmail" @submit="updateProfile"/>
       </card-base>
       <card-base slot="left">
         <h2 slot="header">Créer <strong>une communauté</strong></h2>
@@ -12,7 +12,7 @@
       <card-base slot="right" class="right">
         <h2 slot="header">Les <strong>textes</strong> que vous avez publiés</h2>
         <horizontal-container slot="content">
-          <p v-if="!texts.length">
+          <p v-if="texts.length === 0">
             Vous n'avez encore <strong>jamais publié de texte</strong>.<br/>
             <small>
               Pour cela, ça se passe juste au dessus. <font-awesome-icon icon="paper-plane" size="sm"/>
@@ -26,7 +26,7 @@
       <card-base slot="right" class="right">
         <h2 slot="header">Les <strong>communautés</strong> que vous avez créées</h2>
         <horizontal-container slot="content">
-          <p v-if="!texts.length">
+          <p v-if="!communities.length">
             Vous n'avez encore <strong>jamais créé de communauté</strong>.<br/>
             <small>
               Pour cela, vous êtes au bon endroit, <font-awesome-icon icon="thumbs-up" size="sm"/>
@@ -63,6 +63,15 @@ export default {
   computed: {
     communities() {
       return this.$store.getters.communities
+    },
+    currentPseudo() {
+      return this.$store.getters.user.pseudo
+    },
+    currentName() {
+      return this.$store.getters.user.name
+    },
+    currentEmail() {
+      return this.$store.getters.user.email
     }
   },
   methods: {

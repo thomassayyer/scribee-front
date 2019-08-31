@@ -11,7 +11,7 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   z-index: 999;
   top: 0;
@@ -19,5 +19,6 @@
   width: 100%;
   height: 100%;
   background-color: $modal-background-color;
+  overflow-y: auto;
 }
 </style>

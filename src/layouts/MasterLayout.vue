@@ -1,7 +1,7 @@
 <template>
   <div class="master-layout">
-    <publish-text-modal v-if="isPublishModalShown" @close="hidePublishModal" @submit="publishText"/>
-    <app-navbar @publish="showPublishModal" @search="exploreCommunity" @select="exploreCommunity"/>
+    <publish-text-modal v-if="isPublishTextModalShown" @close="hidePublishTextModal" @submit="publishText"/>
+    <app-navbar @publish="showPublishTextModal" @search="exploreCommunity" @select="exploreCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
       <search-input @select="exploreCommunity"/>
@@ -27,15 +27,15 @@ export default {
   },
   data() {
     return {
-      isPublishModalShown: false
+      isPublishTextModalShown: false
     }
   },
   methods: {
-    showPublishModal() {
-      this.isPublishModalShown = true
+    showPublishTextModal() {
+      this.isPublishTextModalShown = true
     },
-    hidePublishModal() {
-      this.isPublishModalShown = false
+    hidePublishTextModal() {
+      this.isPublishTextModalShown = false
     },
     exploreCommunity(pseudo) {
       this.$router.push({

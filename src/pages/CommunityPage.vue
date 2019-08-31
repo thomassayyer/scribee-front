@@ -1,5 +1,6 @@
 <template>
   <div class="community-page">
+    <confirm-modal v-if="isConfirmDeleteModalShown" question="Êtes-vous certain de vouloir supprimer cette communauté ?" button-color="danger" @close="hideConfirmDeleteModal" @submit="deleteCommunity"/>
     <vertical-container class="not-found" v-if="notFound">
       <h2>
         <strong>Oops !</strong><br/>
@@ -8,7 +9,7 @@
       <default-button color="primary" @click="$router.push({ name: 'dashboard' })">Créer une communauté</default-button>
     </vertical-container>
     <app-wrapper v-else>
-      <card-base slot="left" class="left">
+      <card-base slot="left" class="left" v-if="!ownCommunity">
         <h2 slot="header">
           <strong>{{ name }}</strong>&nbsp;<span class="pseudo">{{ pseudo }}</span><br/>
           <small>Créée {{ createdAt }}</small>
@@ -17,9 +18,19 @@
           {{ description }}
         </p>
       </card-base>
+      <card-base slot="left" class="left" v-else>
+        <h2 slot="header">Modifier <strong>la communauté</strong></h2>
+        <edit-community-form slot="content" :pseudo="pseudo" :name="name" :description="description" @delete="showConfirmDeleteModal" @submit="updateCommunity"></edit-community-form>
+      </card-base>
       <card-base slot="right" class="right">
         <h2 slot="header">Les <strong>textes</strong> de la communauté</h2>
         <horizontal-container slot="content">
+          <p v-if="!texts.length">
+            Cette communauté <strong>ne contient aucun texte</strong>.<br/>
+            <small>
+              Pour cela, ça se passe juste au dessus. <font-awesome-icon icon="paper-plane" size="sm"/>
+            </small>
+          </p>
           <div class="card-wrapper" v-for="text in texts" :key="text.id">
             <text-card :author="text.user" :community="text.community" :text="text.text" :timestamp="new Date(text.updated_at)" @read="readText(text)"/>
           </div>
@@ -38,26 +49,40 @@ import TextCard from '@/components/utils/cards/TextCard'
 import HorizontalContainer from '@/components/HorizontalContainer'
 import VerticalContainer from '@/components/VerticalContainer'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
+import EditCommunityForm from '@/components/community/EditCommunityForm'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ConfirmModal from '@/components/utils/modals/ConfirmModal'
 import { bus } from '@/bus'
 
 export default {
   components: {
-    AppWrapper, CardBase, TextCard, HorizontalContainer, VerticalContainer, DefaultButton
+    AppWrapper, CardBase, TextCard, HorizontalContainer, VerticalContainer, DefaultButton, EditCommunityForm, FontAwesomeIcon, ConfirmModal
   },
   data() {
     return {
       notFound: false,
-      pseudo: null,
       name: null,
       description: null,
       createdAt: null,
-      texts: [ ]
+      ownerPseudo: null,
+      texts: [ ],
+      isConfirmDeleteModalShown: false,
+      isTextModalShown: false,
+      modalText: {
+        id: null
+      }
+    }
+  },
+  computed: {
+    pseudo() {
+      return this.$route.params.pseudo
+    },
+    ownCommunity() {
+      return this.ownerPseudo === this.$store.getters.user.pseudo
     }
   },
   watch: {
-    '$route.params.pseudo' (pseudo) {
-      this.reload(pseudo)
-    }
+    '$route.params.pseudo': pseudo => this.reload()
   },
   created() {
     this.reload()
@@ -68,20 +93,42 @@ export default {
     })
   },
   methods: {
-    reload(pseudo) {
-      this.$store.dispatch('getCommunity', pseudo || this.$route.params.pseudo).then(community => {
+    reload() {
+      this.$store.dispatch('getCommunity', this.pseudo).then(community => {
         this.notFound = false
-        this.pseudo = community.pseudo
         this.name = community.name
         this.description = community.description
         this.createdAt = moment(community.created_at).fromNow()
+        this.ownerPseudo = community.user_pseudo
         this.texts = community.texts
       }).catch(() => {
         this.notFound = true
       })
     },
+    hideConfirmDeleteModal() {
+      this.isConfirmDeleteModalShown = false
+    },
+    showConfirmDeleteModal() {
+      this.isConfirmDeleteModalShown = true
+    },
+    deleteCommunity() {
+      this.$store.dispatch('deleteCommunity', this.pseudo).then(() => {
+        this.$router.push({ name: 'explore' })
+      })
+    },
+    updateCommunity(community) {
+      this.$store.dispatch('updateCommunity', {
+        pseudo: this.pseudo,
+        name: community.name,
+        description: community.description
+      })
+    },
+    hideTextModal() {
+      this.isTextModalShown = false
+    },
     readText(text) {
-      console.log(text)
+      this.modalText = text
+      this.isTextModalShown = true
     }
   }
 }

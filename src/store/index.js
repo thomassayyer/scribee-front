@@ -21,8 +21,7 @@ export const store = new Vuex.Store({
     user: state => state.user,
     communities: state => state.communities,
     loggedIn: state => state.token !== null,
-    randomQuote: state => state.quotes[Math.floor(Math.random()*state.quotes.length)],
-    doneReviews: state => state.reviews.filter(review => !review.done)
+    randomQuote: state => state.quotes[Math.floor(Math.random()*state.quotes.length)]
   },
   mutations: {
     user(state, user) {
@@ -34,13 +33,16 @@ export const store = new Vuex.Store({
     communities(state, communities) {
       state.communities = communities
     },
-    community(state, community) {
+    addCommunity(state, community) {
+      state.communities.push(community)
+    },
+    updateCommunity(state, community) {
       const index = state.communities.findIndex(c => c.pseudo === community.pseudo)
-      if (index > -1) {
-        state.communities[index] = community
-      } else {
-        state.communities.push(community)
-      }
+      state.communities.splice(index, 1, community)
+    },
+    removeCommunity(state, pseudo) {
+      const index = state.communities.findIndex(c => c.pseudo === pseudo)
+      state.communities.splice(index, 1)
     }
   },
   actions: {
@@ -192,7 +194,7 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.post('communities', community).then(response => {
-          commit('community', community)
+          commit('addCommunity', response.data)
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
@@ -238,6 +240,44 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.get('communities/' + pseudo).then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    updateCommunity({ commit, state }, { pseudo, name, description }) {
+      const index = state.communities.findIndex(c => c.pseudo === pseudo)
+      let payload = { }
+      if (name !== state.communities[index].name) {
+        payload.name = name
+      }
+      if (description !== state.communities[index].description) {
+        payload.description = description
+      }
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.patch('communities/' + pseudo, payload).then(response => {
+          commit('updateCommunity', response.data)
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    deleteCommunity({ commit, state }, pseudo) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.delete('communities/' + pseudo).then(response => {
+          commit('removeCommunity', pseudo)
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {
