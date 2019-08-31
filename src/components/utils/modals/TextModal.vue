@@ -7,7 +7,10 @@
           <br/>
           <small>Dans {{ community.pseudo }}, {{ formattedUpdatedAt }}</small>
         </h3>
-        <div slot="content" class="content">
+        <div slot="content" class="content" v-if="ownText">
+          <p class="text monospace">{{ text }}</p>
+        </div>
+        <div slot="content" class="content" v-else>
           <p class="text monospace" @mouseup="selectText">{{ text }}</p>
           <default-button color="primary" @click="$emit('send')">Envoyer mes suggestions</default-button>
         </div>
@@ -52,6 +55,9 @@ export default {
   computed: {
     formattedUpdatedAt() {
       return moment(this.updatedAt).fromNow()
+    },
+    ownText() {
+      return this.$store.getters.user.pseudo === this.author.pseudo
     },
     selection() {
       return window.getSelection()
