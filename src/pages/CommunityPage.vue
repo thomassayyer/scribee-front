@@ -1,8 +1,12 @@
 <template>
   <div class="community-page">
-    <horizontal-container v-if="notFound">
-      Cette communauté n'existe pas
-    </horizontal-container>
+    <vertical-container class="not-found" v-if="notFound">
+      <h2>
+        <strong>Oops !</strong><br/>
+        <small>Cette communauté n'existe pas</small>
+      </h2>
+      <default-button color="primary" @click="$router.push({ name: 'dashboard' })">Créer une communauté</default-button>
+    </vertical-container>
     <app-wrapper v-else>
       <card-base slot="left" class="left">
         <h2 slot="header">
@@ -32,11 +36,13 @@ import AppWrapper from '@/components/AppWrapper'
 import CardBase from '@/components/utils/cards/CardBase'
 import TextCard from '@/components/utils/cards/TextCard'
 import HorizontalContainer from '@/components/HorizontalContainer'
-import { EventBus } from '@/bus'
+import VerticalContainer from '@/components/VerticalContainer'
+import DefaultButton from '@/components/utils/buttons/DefaultButton'
+import { bus } from '@/bus'
 
 export default {
   components: {
-    AppWrapper, CardBase, TextCard, HorizontalContainer
+    AppWrapper, CardBase, TextCard, HorizontalContainer, VerticalContainer, DefaultButton
   },
   data() {
     return {
@@ -55,7 +61,7 @@ export default {
   },
   created() {
     this.reload()
-    EventBus.$on('textPublished', text => {
+    bus.$on('textPublished', text => {
       if (text.community.pseudo === this.pseudo) {
         this.texts.push(text)
       }
@@ -86,6 +92,16 @@ export default {
 
 .community-page {
   width: 100%;
+  .not-found {
+    h2 {
+      small {
+        color: $secondary-color;
+      }
+    }
+    .default-button {
+      margin: 30px 0;
+    }
+  }
   .card-base {
     margin-bottom: 50px;
     &.left {

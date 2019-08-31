@@ -19,7 +19,7 @@ import AppNavbar from '@/components/AppNavbar'
 import VerticalContainer from '@/components/VerticalContainer'
 import SearchInput from '@/components/utils/inputs/SearchInput'
 import AppLicense from '@/components/AppLicense'
-import { EventBus } from '@/bus'
+import { bus } from '@/bus'
 
 export default {
   components: {
@@ -50,7 +50,7 @@ export default {
           name: 'community',
           params: { pseudo: createdText.community_pseudo }
         })
-        EventBus.$emit('textPublished', createdText)
+        bus.$emit('textPublished', createdText)
       })
     }
   }
