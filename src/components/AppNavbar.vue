@@ -31,7 +31,7 @@
         </li>
         <li class="navbar-item">
           <router-link :to="{ name: 'logout' }">
-            <font-awesome-icon icon="power-off"/>
+            <font-awesome-icon icon="power-off" size="lg"/>
           </router-link>
         </li>
       </ul>
