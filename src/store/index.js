@@ -25,6 +25,15 @@ export const store = new Vuex.Store({
     user(state, user) {
       state.user = user
     },
+    incrementUserScore(state, increment) {
+      if (!increment) {
+        increment = 1
+      }
+      state.user.score += increment
+    },
+    decrementUserScore(state) {
+      state.user.score--
+    },
     token(state, token) {
       state.token = token
     }
@@ -258,6 +267,64 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios.defaults.headers.authorization = 'Bearer ' + state.token
         Axios.delete('communities/' + pseudo).then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    deleteText({ commit, state }, id) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.delete('texts/' + id).then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    sendSuggestions({ commit, state }, { suggestions, textId }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.post('texts/' + textId + '/suggestions', { suggestions }).then(response => {
+          commit('incrementUserScore', suggestions.length)
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    acceptSuggestion({ commit, state }, { suggestionId, textId }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.patch('texts/' + textId + '/suggestions/' + suggestionId).then(response => {
+          commit('decrementUserScore')
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    rejectSuggestion({ commit, state }, { suggestionId }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.delete('suggestions/' + suggestionId).then(response => {
           resolve(response.data)
         }).catch(error => {
           if (error.response.status === 401) {

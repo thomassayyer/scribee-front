@@ -1,6 +1,6 @@
 <template>
   <div :class="'modal-content ' + size">
-    <modal-header @close="$emit('close')"><slot name="header"/><hr/></modal-header>
+    <modal-header @close="$emit('close')"><slot name="header"/><hr class="separator"/></modal-header>
     <div class="content">
       <slot name="content"/>
     </div>
@@ -28,20 +28,18 @@ export default {
 @import '@/styles/color.scss';
 
 .modal-content {
-  width: 300px;
+  width: 20%;
   padding: 30px;
   background-color: white;
   border-radius: 10px;
   border: 1px solid $secondary-color;
   margin: 30px 0;
+  min-width: 300px;
   &.large {
-    width: 600px;
-    @media screen and (max-width: 700px) {
-      width: 300px;
-    }
+    width: 50%;
   }
   .modal-header {
-    hr {
+    .separator {
       margin: 20px 0;
     }
   }

@@ -1,7 +1,6 @@
 <template>
   <div class="master-layout">
-    <publish-text-modal v-if="isPublishTextModalShown" @close="hidePublishTextModal" @submit="publishText"/>
-    <app-navbar @publish="showPublishTextModal" @search="exploreCommunity" @select="exploreCommunity"/>
+    <app-navbar @publish="publishText" @search="exploreCommunity" @select="exploreCommunity"/>
     <div class="background"></div>
     <vertical-container class="wrapper">
       <search-input @select="exploreCommunity"/>
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-import PublishTextModal from '@/components/utils/modals/PublishTextModal'
 import AppNavbar from '@/components/AppNavbar'
 import VerticalContainer from '@/components/VerticalContainer'
 import SearchInput from '@/components/utils/inputs/SearchInput'
@@ -23,20 +21,9 @@ import { bus } from '@/bus'
 
 export default {
   components: {
-    PublishTextModal, AppNavbar, VerticalContainer, SearchInput, AppLicense
-  },
-  data() {
-    return {
-      isPublishTextModalShown: false
-    }
+    AppNavbar, VerticalContainer, SearchInput, AppLicense
   },
   methods: {
-    showPublishTextModal() {
-      this.isPublishTextModalShown = true
-    },
-    hidePublishTextModal() {
-      this.isPublishTextModalShown = false
-    },
     exploreCommunity(pseudo) {
       this.$router.push({
         name: 'community',
@@ -45,12 +32,11 @@ export default {
     },
     publishText(text) {
       this.$store.dispatch('publishText', text).then(createdText => {
-        this.hidePublishTextModal()
         this.$router.push({
           name: 'community',
           params: { pseudo: createdText.community_pseudo }
         })
-        bus.$emit('textPublished', createdText)
+        bus.$emit('text-published', createdText)
       })
     }
   }

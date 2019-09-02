@@ -9,7 +9,7 @@
         <password-input v-model="password" :wrong="passwordError !== null" :error="passwordError"/>
         <default-button :disabled="!password" color="danger">Quitter {{ appName }} :(</default-button>
       </form>
-      <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
+      <router-link :to="{ name: 'home' }" id="cancel">Annuler</router-link>
     </vertical-container>
   </div>
 </template>
@@ -20,15 +20,6 @@ import PasswordInput from '@/components/utils/inputs/PasswordInput'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
-  props: {
-    cancelRedirectsTo: {
-      type: Object,
-      required: false,
-      default: function () {
-        return { name: 'home' }
-      }
-    }
-  },
   components: {
     VerticalContainer, PasswordInput, DefaultButton
   },

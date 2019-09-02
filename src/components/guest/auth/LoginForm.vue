@@ -8,7 +8,7 @@
       <login-invalid-credentials v-if="invalidCredentials"/>
       <default-button :disabled="!isEverythingFilled" color="primary">C'est parti !</default-button>
     </form>
-    <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
+    <router-link :to="{ name: 'welcome' }" id="cancel">Annuler</router-link>
   </div>
 </template>
 
@@ -28,13 +28,6 @@ export default {
     pseudo: {
       type: String,
       required: false
-    },
-    cancelRedirectsTo: {
-      type: Object,
-      required: false,
-      default: function () {
-        return { name: 'welcome' }
-      }
     },
     invalidCredentials: {
       type: Boolean,

@@ -1,5 +1,6 @@
 <template>
   <div class="text-modal">
+    <suggestion-modal v-if="isSuggestionModalShown" :original-text="selection.toString()" @close="hideSuggestionModal" @submit="addSuggestion"/>
     <modal-wrapper>
       <modal-content @close="$emit('close')" size="large">
         <h3 slot="header" class="header">
@@ -7,12 +8,17 @@
           <br/>
           <small>Dans {{ community.pseudo }}, {{ formattedUpdatedAt }}</small>
         </h3>
-        <div slot="content" class="content" v-if="ownText">
-          <p class="text monospace">{{ text }}</p>
-        </div>
-        <div slot="content" class="content" v-else>
-          <p class="text monospace" @mouseup="selectText">{{ text }}</p>
-          <default-button color="primary" @click="$emit('send')">Envoyer mes suggestions</default-button>
+        <div slot="content" class="content">
+          <horizontal-container>
+            <p class="text monospace" @mouseup="showSuggestionModal">{{ text }}</p>
+            <div v-if="!ownText">
+              <suggestion-list v-if="newSuggestions.length" :suggestions="newSuggestions" @reject="removeSuggestion"/>
+              <suggestion-list v-if="ownSuggestions.length" :suggestions="ownSuggestions" :expose="true"/>
+            </div>
+            <suggestion-list v-else-if="suggestions.length" :suggestions="suggestions" :own-text="true" @accept="$emit('accept-suggestion', $event)" @reject="removeSuggestion"/>
+          </horizontal-container>
+          <default-button v-if="ownText" color="danger" @click="$emit('remove')">Supprimer le texte</default-button>
+          <default-button v-else :disabled="!newSuggestions.length" color="primary" @click="$emit('send-suggestions', newSuggestions)">Envoyer mes suggestions</default-button>
         </div>
       </modal-content>
     </modal-wrapper>
@@ -22,8 +28,11 @@
 <script>
 import moment from 'moment'
 import 'moment/locale/fr'
+import SuggestionModal from './SuggestionModal'
 import ModalWrapper from './ModalWrapper'
 import ModalContent from './ModalContent'
+import HorizontalContainer from '@/components/HorizontalContainer'
+import SuggestionList from '@/components/suggestion/SuggestionList'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
@@ -50,7 +59,7 @@ export default {
     }
   },
   components: {
-    ModalWrapper, ModalContent, DefaultButton
+    SuggestionModal, ModalWrapper, ModalContent, HorizontalContainer, SuggestionList, DefaultButton
   },
   computed: {
     formattedUpdatedAt() {
@@ -60,13 +69,43 @@ export default {
       return this.$store.getters.user.pseudo === this.author.pseudo
     },
     selection() {
-      return window.getSelection()
+      if (window.getSelection) {
+        return window.getSelection()
+      }
+      return null
+    },
+    ownSuggestions() {
+      return this.suggestions.filter(s => {
+        return s.user.pseudo === this.$store.getters.user.pseudo
+      })
+    }
+  },
+  data() {
+    return {
+      newSuggestions: [ ],
+      isSuggestionModalShown: false
     }
   },
   methods: {
-    selectText() {
-      if (this.selection.toString()) {
-        console.log(this.selection)
+    hideSuggestionModal() {
+      this.isSuggestionModalShown = false
+    },
+    showSuggestionModal() {
+      if (!this.ownText && this.selection.toString().trim()) {
+        this.isSuggestionModalShown = true
+      }
+    },
+    addSuggestion(suggestion) {
+      suggestion.id = this.newSuggestions.length
+      this.newSuggestions.push(suggestion)
+      this.isSuggestionModalShown = false
+    },
+    removeSuggestion(suggestion) {
+      if (this.ownText) {
+        this.$emit('remove-suggestion', suggestion)
+      } else {
+        const index = this.newSuggestions.findIndex(s => s.id === suggestion.id)
+        this.newSuggestions.splice(index, 1)
       }
     }
   }
@@ -88,14 +127,19 @@ export default {
   .content {
     padding: 0 20px;
     .text {
-      text-align: left;
-      max-width: 600px;
+      text-align: justify;
       white-space: pre-line;
       user-select: text;
     }
-    .default-button {
-      margin-top: 30px;
-      margin-bottom: 10px;
+    .horizontal-container {
+      align-items: flex-start;
+      @media screen and (max-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+      }
+      .suggestion-list {
+        margin-left: 30px;
+      }
     }
   }
 }

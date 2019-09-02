@@ -8,7 +8,7 @@
       <password-input @keyup="validatePassword" v-model="user.password" :wrong="validation.password !== null" :error="validation.password"/>
       <default-button :disabled="!isEverythingValid || !isEverythingFilled" color="primary">M'enregistrer</default-button>
     </form>
-    <router-link :to="cancelRedirectsTo" id="cancel">Annuler</router-link>
+    <router-link :to="{ name: 'welcome' }" id="cancel">Annuler</router-link>
   </div>
 </template>
 
@@ -19,15 +19,6 @@ import PasswordInput from '@/components/utils/inputs/PasswordInput'
 import DefaultButton from '@/components/utils/buttons/DefaultButton'
 
 export default {
-  props: {
-    cancelRedirectsTo: {
-      type: Object,
-      required: false,
-      default: function () {
-        return { name: 'welcome' }
-      }
-    }
-  },
   components: {
     RegisterWelcomeMessage, TextInput, PasswordInput, DefaultButton
   },

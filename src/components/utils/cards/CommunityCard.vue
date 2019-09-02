@@ -8,7 +8,7 @@
       </h3>
       <div slot="content" class="content">
         <p class="description monospace">{{ cutDescription }}</p>
-        <default-button color="primary" @click="$emit('explore')">Explorer</default-button>
+        <default-button color="primary" @click="exploreCommunity">Explorer</default-button>
       </div>
     </card-base>
   </div>
@@ -48,6 +48,14 @@ export default {
     },
     cutDescription() {
       return this.description.substring(0, 50) + (this.description.length > 50 ? ' [...]' : '')
+    }
+  },
+  methods: {
+    exploreCommunity() {
+      this.$router.push({
+        name: 'community',
+        params: { pseudo: this.pseudo }
+      })
     }
   }
 }

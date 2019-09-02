@@ -1,5 +1,6 @@
 <template>
   <div class="app-navbar">
+    <publish-text-modal v-if="isPublishTextModalShown" @close="hidePublishTextModal" @submit="$emit('publish', $event)"/>
     <div class="navbar">
       <ul class="navbar-left">
         <li class="navbar-item">
@@ -21,7 +22,7 @@
       </ul>
       <ul class="navbar-right">
         <li class="navbar-item">
-          <a @click="$emit('publish')">
+          <a @click="showPublishTextModal">
             <font-awesome-icon icon="paper-plane" size="lg"/>
           </a>
         </li>
@@ -40,13 +41,15 @@
 </template>
 
 <script>
+import PublishTextModal from '@/components/utils/modals/PublishTextModal'
 import AppLogo from './AppLogo';
 import SearchInput from './utils/inputs/SearchInput'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { bus } from '@/bus'
 
 export default {
   components: {
-    AppLogo, SearchInput, FontAwesomeIcon
+    PublishTextModal, AppLogo, SearchInput, FontAwesomeIcon
   },
   computed: {
     homeClass() {
@@ -74,10 +77,24 @@ export default {
       return 'thermometer-empty'
     }
   },
+  data() {
+    return {
+      isPublishTextModalShown: false
+    }
+  },
   methods: {
+    showPublishTextModal() {
+      this.isPublishTextModalShown = true
+    },
+    hidePublishTextModal() {
+      this.isPublishTextModalShown = false
+    },
     autocomplete(query) {
       return this.$store.dispatch('autocompleteCommunities', query)
     }
+  },
+  created() {
+    bus.$on('text-published', this.hidePublishTextModal)
   }
 }
 </script>

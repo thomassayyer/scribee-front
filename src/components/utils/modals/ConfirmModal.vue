@@ -1,5 +1,5 @@
 <template>
-  <div class="text-modal">
+  <div class="confirm-modal">
     <modal-wrapper>
       <modal-content @close="$emit('close')">
         <h3 slot="header" class="title">{{ question }}</h3>

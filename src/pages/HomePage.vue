@@ -19,7 +19,7 @@
             </small>
           </p>
           <div class="card-wrapper" v-for="text in texts" :key="text.id">
-            <text-card :author="text.user" :community="text.community" :text="text.text" :updated-at="new Date(text.updated_at)" @read="readText(text)"/>
+            <text-card :author="text.user" :community="text.community" :text="text.text" :updated-at="new Date(text.updated_at)" :suggestions="text.suggestions"/>
           </div>
         </horizontal-container>
       </card-base>
@@ -33,7 +33,7 @@
             </small>
           </p>
           <div class="card-wrapper" v-for="community in communities" :key="community.pseudo">
-            <community-card :pseudo="community.pseudo" :name="community.name" :description="community.description" :created-at="new Date(community.created_at)" @explore="exploreCommunity(community)"/>
+            <community-card :pseudo="community.pseudo" :name="community.name" :description="community.description" :created-at="new Date(community.created_at)"/>
           </div>
         </horizontal-container>
       </card-base>
@@ -91,15 +91,6 @@ export default {
           this.$refs.createCommunityForm.error('pseudo', "Ce pseudo n'est pas disponible.")
         }
       })
-    },
-    exploreCommunity({ pseudo }) {
-      this.$router.push({
-        name: 'community',
-        params: { pseudo }
-      })
-    },
-    readText(text) {
-      console.log(text)
     }
   },
   created() {
