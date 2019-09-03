@@ -19,7 +19,7 @@
             </small>
           </p>
           <div class="card-wrapper" v-for="text in texts" :key="text.id">
-            <text-card :author="text.user" :community="text.community" :text="text.text" :updated-at="new Date(text.updated_at)" :suggestions="text.suggestions"/>
+            <text-card :author="text.user" :community="text.community" :text="text.text" :updated-at="new Date(text.updated_at)" :suggestions="text.suggestions" @send-suggestions="sendSuggestions($event, text)" @accept-suggestion="acceptSuggestion($event, text)" @reject-suggestion="rejectSuggestion($event, text)" @remove="removeText(text)"/>
           </div>
         </horizontal-container>
       </card-base>
@@ -50,6 +50,7 @@ import CreateCommunityForm from '@/components/community/CreateCommunityForm'
 import TextCard from '@/components/utils/cards/TextCard'
 import CommunityCard from '@/components/utils/cards/CommunityCard'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { bus } from '@/bus'
 
 export default {
   components: {
@@ -90,6 +91,42 @@ export default {
         if (errors.pseudo) {
           this.$refs.createCommunityForm.error('pseudo', "Ce pseudo n'est pas disponible.")
         }
+      })
+    },
+    sendSuggestions(suggestions, text) {
+      this.$store.dispatch('sendSuggestions', {
+        suggestions,
+        textId: text.id
+      }).then(createdSuggestions => {
+        const index = this.texts.findIndex(t => t.id === text.id)
+        this.texts[index].suggestions = this.texts[index].suggestions.concat(createdSuggestions)
+        bus.$emit('suggestions-sent')
+      })
+    },
+    acceptSuggestion(suggestion, text) {
+      this.$store.dispatch('acceptSuggestion', {
+        suggestionId: suggestion.id,
+        textId: text.id
+      }).then(correctedText => {
+        const textIndex = this.texts.findIndex(t => t.id === text.id)
+        this.texts[textIndex].text = correctedText
+        const suggestionIndex = this.texts[textIndex].suggestions.findIndex(s => s.id === suggestion.id)
+        this.texts[textIndex].suggestions.splice(suggestionIndex, 1)
+      })
+    },
+    rejectSuggestion(suggestion, text) {
+      this.$store.dispatch('rejectSuggestion', {
+        suggestionId: suggestion.id
+      }).then(() => {
+        const textIndex = this.texts.findIndex(t => t.id === text.id)
+        const suggestionIndex = this.texts[textIndex].suggestions.findIndex(s => s.id === suggestion.id)
+        this.texts[textIndex].suggestions.splice(suggestionIndex, 1)
+      })
+    },
+    removeText(text) {
+      this.$store.dispatch('deleteText', text.id).then(() => {
+        const index = this.texts.findIndex(t => t.id === text.id)
+        this.texts.splice(index, 1)
       })
     }
   },
