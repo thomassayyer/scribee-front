@@ -47,11 +47,10 @@ import HorizontalContainer from '@/components/HorizontalContainer'
 import VerticalContainer from '@/components/VerticalContainer'
 import CardBase from '@/components/utils/cards/CardBase'
 import CommunityCard from '@/components/utils/cards/CommunityCard'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
   components: {
-    DefaultButton, AppWrapper, HorizontalContainer, VerticalContainer, CardBase, CommunityCard, FontAwesomeIcon
+    DefaultButton, AppWrapper, HorizontalContainer, VerticalContainer, CardBase, CommunityCard
   },
   data() {
     return {
