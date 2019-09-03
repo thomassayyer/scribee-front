@@ -9,7 +9,7 @@
         <h2 slot="header">Créer <strong>une communauté</strong></h2>
         <create-community-form slot="content" ref="createCommunityForm" @submit="createCommunity"/>
       </card-base>
-      <card-base slot="right" class="right">
+      <card-base slot="right" class="right" color="light">
         <h2 slot="header">Les <strong>textes</strong> que vous avez publiés</h2>
         <horizontal-container slot="content">
           <p v-if="texts.length === 0">
@@ -23,7 +23,7 @@
           </div>
         </horizontal-container>
       </card-base>
-      <card-base slot="right" class="right">
+      <card-base slot="right" class="right" color="light">
         <h2 slot="header">Les <strong>communautés</strong> que vous avez créées</h2>
         <horizontal-container slot="content">
           <p v-if="!communities.length">
@@ -156,8 +156,6 @@ export default {
     margin-bottom: 50px;
     &.right {
       max-width: none;
-      background: white;
-      color: $main-color;
       h2 {
         padding: 0 20px;
       }

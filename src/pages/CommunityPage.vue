@@ -3,7 +3,7 @@
     <vertical-container class="not-found" v-if="notFound">
       <h2>
         <strong>Oops !</strong><br/>
-        <small>Cette communauté n'existe pas</small>
+        <small>Cette communauté n'existe pas.</small>
       </h2>
       <default-button color="primary" @click="$router.push({ name: 'home' })">Créer une communauté</default-button>
     </vertical-container>
@@ -21,7 +21,7 @@
           {{ description }}
         </p>
       </card-base>
-      <card-base slot="right" class="right">
+      <card-base slot="right" class="right" color="light">
         <h2 slot="header">Les <strong>textes</strong> de la communauté</h2>
         <horizontal-container slot="content">
           <p v-if="!texts.length">
@@ -186,8 +186,6 @@ export default {
     }
     &.right {
       max-width: none;
-      background: white;
-      color: $main-color;
       h2 {
         padding: 0 20px;
       }

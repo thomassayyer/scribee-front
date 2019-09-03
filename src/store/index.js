@@ -241,6 +241,76 @@ export const store = new Vuex.Store({
         })
       })
     },
+    getDailyCommunity({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/daily').then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    getWeeklyCommunity({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/weekly').then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    getMonthlyCommunity({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/monthly').then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    getPopularCommunities({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/populars').then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
+    getLatestCommunities({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Axios.defaults.headers.authorization = 'Bearer ' + state.token
+        Axios.get('communities/latests').then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          if (error.response.status === 401) {
+            localStorage.removeItem('api_token')
+            commit('token', null)
+          }
+          reject(error.response.data)
+        })
+      })
+    },
     updateCommunity({ commit, state }, { pseudo, name, description }) {
       const index = state.communities.findIndex(c => c.pseudo === pseudo)
       let payload = { }

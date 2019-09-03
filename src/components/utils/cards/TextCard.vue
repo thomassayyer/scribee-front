@@ -1,7 +1,7 @@
 <template>
   <div class="text-card">
     <text-modal v-if="isTextModalShown" :author="author" :community="community" :text="text" :updated-at="updatedAt" :suggestions="suggestions" @close="hideTextModal" @send-suggestions="$emit('send-suggestions', $event)" @accept-suggestion="$emit('accept-suggestion', $event)" @reject-suggestion="$emit('reject-suggestion', $event)" @remove="$emit('remove')"/>
-    <card-base>
+    <card-base :color="color">
       <h3 slot="header" class="header">
         {{ author.name }}&nbsp;<span class="author-pseudo">{{ author.pseudo }}</span>
         <br/>
@@ -44,6 +44,11 @@ export default {
     suggestions: {
       required: true,
       type: Array
+    },
+    color: {
+      required: false,
+      type: String,
+      default: 'light'
     }
   },
   components: {
@@ -82,8 +87,6 @@ export default {
 .text-card {
   .card-base {
     padding: 30px 0;
-    color: $main-color;
-    background: white;
     .header {
       .author-pseudo {
         color: $primary-color;

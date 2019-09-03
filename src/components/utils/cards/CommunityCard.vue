@@ -1,6 +1,6 @@
 <template>
   <div class="community-card">
-    <card-base>
+    <card-base :color="color">
       <h3 slot="header" class="header">
         {{ name }}&nbsp;<span class="pseudo">{{ pseudo }}</span>
         <br/>
@@ -8,7 +8,7 @@
       </h3>
       <div slot="content" class="content">
         <p class="description monospace">{{ cutDescription }}</p>
-        <default-button color="primary" @click="exploreCommunity">Explorer</default-button>
+        <default-button :color="buttonColor" @click="exploreCommunity">Explorer</default-button>
       </div>
     </card-base>
   </div>
@@ -37,6 +37,11 @@ export default {
     createdAt: {
       required: true,
       type: Date
+    },
+    color: {
+      required: false,
+      type: String,
+      default: 'light'
     }
   },
   components: {
@@ -48,6 +53,9 @@ export default {
     },
     cutDescription() {
       return this.description.substring(0, 50) + (this.description.length > 50 ? ' [...]' : '')
+    },
+    buttonColor() {
+      return this.color === 'dark' ? 'white' : 'primary'
     }
   },
   methods: {
@@ -67,8 +75,6 @@ export default {
 .community-card {
   .card-base {
     padding: 30px 0;
-    color: $main-color;
-    background: white;
     .header {
       .pseudo {
         color: $warning-color;

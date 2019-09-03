@@ -27,13 +27,13 @@ export default {
 
 .app-wrapper {
   width: 100%;
-  > .horizontal-container {
+  .horizontal-container {
     align-items: flex-start;
     @media screen and (max-width: 700px) {
       flex-direction: column;
       align-items: center;
     }
-    > .vertical-container {
+    .vertical-container {
       padding: 0 50px;
       @media screen and (max-width: 970px) {
         padding: 30px;
