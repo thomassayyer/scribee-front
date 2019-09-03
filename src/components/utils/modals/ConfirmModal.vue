@@ -39,9 +39,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/color.scss';
+
 .confirm-modal {
   .title {
     font-weight: bold;
+    color: $main-color;
   }
 }
 </style>
