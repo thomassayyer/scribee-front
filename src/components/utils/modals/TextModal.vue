@@ -102,7 +102,7 @@ export default {
     },
     removeSuggestion(suggestion) {
       if (this.ownText) {
-        this.$emit('remove-suggestion', suggestion)
+        this.$emit('reject-suggestion', suggestion)
       } else {
         const index = this.newSuggestions.findIndex(s => s.id === suggestion.id)
         this.newSuggestions.splice(index, 1)
