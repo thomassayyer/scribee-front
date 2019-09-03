@@ -100,6 +100,8 @@ export default {
       }).then(createdSuggestions => {
         const index = this.texts.findIndex(t => t.id === text.id)
         this.texts[index].suggestions = this.texts[index].suggestions.concat(createdSuggestions)
+        this.texts.unshift(this.texts[index])
+        this.texts.splice(index + 1, 1)
         bus.$emit('suggestions-sent')
       })
     },
@@ -112,6 +114,8 @@ export default {
         this.texts[textIndex].text = correctedText
         const suggestionIndex = this.texts[textIndex].suggestions.findIndex(s => s.id === suggestion.id)
         this.texts[textIndex].suggestions.splice(suggestionIndex, 1)
+        this.texts.unshift(this.texts[textIndex])
+        this.texts.splice(textIndex + 1, 1)
       })
     },
     rejectSuggestion(suggestion, text) {
@@ -121,6 +125,8 @@ export default {
         const textIndex = this.texts.findIndex(t => t.id === text.id)
         const suggestionIndex = this.texts[textIndex].suggestions.findIndex(s => s.id === suggestion.id)
         this.texts[textIndex].suggestions.splice(suggestionIndex, 1)
+        this.texts.unshift(this.texts[textIndex])
+        this.texts.splice(textIndex + 1, 1)
       })
     },
     removeText(text) {
